@@ -14,6 +14,14 @@
 		5F87B10E2128631800402A24 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F87B10D2128631800402A24 /* Assets.xcassets */; };
 		5F87B1112128631800402A24 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F87B10F2128631800402A24 /* LaunchScreen.storyboard */; };
 		5F87B11C2128631800402A24 /* PicPaperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87B11B2128631800402A24 /* PicPaperTests.swift */; };
+		5F87B129212868EF00402A24 /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87B128212868EF00402A24 /* Routes.swift */; };
+		5F87B12B21286CA500402A24 /* RequestParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87B12A21286CA500402A24 /* RequestParams.swift */; };
+		5F87B12D2128788900402A24 /* NetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87B12C2128788900402A24 /* NetworkProvider.swift */; };
+		5F87B12F212880E000402A24 /* PixaBayDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87B12E212880E000402A24 /* PixaBayDataManager.swift */; };
+		5F87B131212880ED00402A24 /* Fetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87B130212880ED00402A24 /* Fetchable.swift */; };
+		5F87B133212881AF00402A24 /* NetworkFetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87B132212881AF00402A24 /* NetworkFetchable.swift */; };
+		5F87B1352128846E00402A24 /* LocalFetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87B1342128846E00402A24 /* LocalFetchable.swift */; };
+		5F87B13721288A9F00402A24 /* PixabayPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87B13621288A9F00402A24 /* PixabayPicture.swift */; };
 		8287CE9AB21D4A3DA73842A5 /* Pods_PicPaperTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F0D9621FF3F67C92B29D752 /* Pods_PicPaperTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +50,14 @@
 		5F87B1172128631800402A24 /* PicPaperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PicPaperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F87B11B2128631800402A24 /* PicPaperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicPaperTests.swift; sourceTree = "<group>"; };
 		5F87B11D2128631800402A24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5F87B128212868EF00402A24 /* Routes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routes.swift; sourceTree = "<group>"; };
+		5F87B12A21286CA500402A24 /* RequestParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestParams.swift; sourceTree = "<group>"; };
+		5F87B12C2128788900402A24 /* NetworkProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProvider.swift; sourceTree = "<group>"; };
+		5F87B12E212880E000402A24 /* PixaBayDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixaBayDataManager.swift; sourceTree = "<group>"; };
+		5F87B130212880ED00402A24 /* Fetchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fetchable.swift; sourceTree = "<group>"; };
+		5F87B132212881AF00402A24 /* NetworkFetchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkFetchable.swift; sourceTree = "<group>"; };
+		5F87B1342128846E00402A24 /* LocalFetchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFetchable.swift; sourceTree = "<group>"; };
+		5F87B13621288A9F00402A24 /* PixabayPicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixabayPicture.swift; sourceTree = "<group>"; };
 		9E68F77951CA12651199F75D /* Pods-PicPaperTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicPaperTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PicPaperTests/Pods-PicPaperTests.release.xcconfig"; sourceTree = "<group>"; };
 		C0C6B08E3AB8D0A7C65C96B2 /* Pods-PicPaper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicPaper.release.xcconfig"; path = "Pods/Target Support Files/Pods-PicPaper/Pods-PicPaper.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -100,6 +116,9 @@
 		5F87B1052128631600402A24 /* PicPaper */ = {
 			isa = PBXGroup;
 			children = (
+				5F87B1272128683600402A24 /* Networking */,
+				5F87B12E212880E000402A24 /* PixaBayDataManager.swift */,
+				5F87B13621288A9F00402A24 /* PixabayPicture.swift */,
 				5F87B1062128631600402A24 /* AppDelegate.swift */,
 				5F87B1082128631600402A24 /* ViewController.swift */,
 				5F87B10A2128631600402A24 /* Main.storyboard */,
@@ -117,6 +136,19 @@
 				5F87B11D2128631800402A24 /* Info.plist */,
 			);
 			path = PicPaperTests;
+			sourceTree = "<group>";
+		};
+		5F87B1272128683600402A24 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				5F87B128212868EF00402A24 /* Routes.swift */,
+				5F87B12A21286CA500402A24 /* RequestParams.swift */,
+				5F87B12C2128788900402A24 /* NetworkProvider.swift */,
+				5F87B130212880ED00402A24 /* Fetchable.swift */,
+				5F87B132212881AF00402A24 /* NetworkFetchable.swift */,
+				5F87B1342128846E00402A24 /* LocalFetchable.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		606ABA349E9187361D4A13B3 /* Frameworks */ = {
@@ -313,7 +345,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F87B1092128631600402A24 /* ViewController.swift in Sources */,
+				5F87B133212881AF00402A24 /* NetworkFetchable.swift in Sources */,
+				5F87B129212868EF00402A24 /* Routes.swift in Sources */,
+				5F87B1352128846E00402A24 /* LocalFetchable.swift in Sources */,
+				5F87B12D2128788900402A24 /* NetworkProvider.swift in Sources */,
+				5F87B13721288A9F00402A24 /* PixabayPicture.swift in Sources */,
 				5F87B1072128631600402A24 /* AppDelegate.swift in Sources */,
+				5F87B12B21286CA500402A24 /* RequestParams.swift in Sources */,
+				5F87B12F212880E000402A24 /* PixaBayDataManager.swift in Sources */,
+				5F87B131212880ED00402A24 /* Fetchable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

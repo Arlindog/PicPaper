@@ -7,11 +7,26 @@
 //
 
 import UIKit
+import PromiseKit
 
 class ViewController: UIViewController {
 
+    let dataManager = PixaBayDataManager()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        let params = RequestParams.buildParams(values: [
+            .order(.popular),
+            .safeSearch(true),
+            .resultCount(1),
+            .page(0),
+            .searchTerm(["Soccer"])
+        ])
+        dataManager.getPictures(paramerts: params)
+            .done { (picure) in
+                print(picure)
+            }.catch { error in
+                print(error)
+            }
     }
 }
