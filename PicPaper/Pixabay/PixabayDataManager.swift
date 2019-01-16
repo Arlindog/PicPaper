@@ -24,14 +24,14 @@ class PixabayDataManager {
     func getVideos(parameters: Params) -> Promise<String> {
         let url = Routes.url(for: .video)
         return Promise { seal in
-//            fetchable.get(seal: seal, url: url, parameters: paramerts)
+            // TODO: REquest Videos
         }
     }
 
     func getStaticVideoImage(videoId: String, size: String) -> Promise<String> {
         let url = Routes.url(for: .staticVideoImage(videoId, size))
         return Promise { seal in
-//            fetchable.get(seal: seal, url: url, parameters: nil)
+            // TODO: Request Video Images for preview
         }
     }
 }
