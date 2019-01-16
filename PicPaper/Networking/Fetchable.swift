@@ -9,5 +9,5 @@
 import PromiseKit
 
 protocol Fetchable {
-    func get<Object: Decodable>(seal: Resolver<Object>, url: String, parameters: Params?)
+    func get<Object: Decodable>(url: String, parameters: Params?) -> Promise<Object>
 }

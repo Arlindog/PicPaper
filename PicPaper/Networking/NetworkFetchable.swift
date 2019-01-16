@@ -12,7 +12,9 @@ class NetworkFetchable: Fetchable {
 
     let provider = NetworkProvider()
 
-    func get<Object: Decodable>(seal: Resolver<Object>, url: String, parameters: Params?) {
-        provider.get(seal: seal, url: url, parameters: parameters)
+    func get<Object: Decodable>(url: String, parameters: Params?) -> Promise<Object> {
+        return Promise { seal in
+            provider.get(seal: seal, url: url, parameters: parameters)
+        }
     }
 }

@@ -1,5 +1,5 @@
 //
-//  PixaBayDataManager.swift
+//  PixabayDataManager.swift
 //  PicPaper
 //
 //  Created by Arlindo on 8/18/18.
@@ -8,7 +8,7 @@
 
 import PromiseKit
 
-class PixaBayDataManager {
+class PixabayDataManager {
 
     let fetchable: Fetchable
 
@@ -16,24 +16,22 @@ class PixaBayDataManager {
         self.fetchable = fetchable
     }
 
-    func getPictures(paramerts: Params) -> Promise<String> {
+    func getPictures(parameters: Params) -> Promise<PixabayContentItem<PixabayPicture>> {
         let url = Routes.url(for: .picture)
-        return Promise { seal in
-            fetchable.get(seal: seal, url: url, parameters: paramerts)
-        }
+        return fetchable.get(url: url, parameters: parameters)
     }
 
-    func getVideos(paramerts: Params) -> Promise<String> {
+    func getVideos(parameters: Params) -> Promise<String> {
         let url = Routes.url(for: .video)
         return Promise { seal in
-            fetchable.get(seal: seal, url: url, parameters: paramerts)
+//            fetchable.get(seal: seal, url: url, parameters: paramerts)
         }
     }
 
     func getStaticVideoImage(videoId: String, size: String) -> Promise<String> {
         let url = Routes.url(for: .staticVideoImage(videoId, size))
         return Promise { seal in
-            fetchable.get(seal: seal, url: url, parameters: nil)
+//            fetchable.get(seal: seal, url: url, parameters: nil)
         }
     }
 }

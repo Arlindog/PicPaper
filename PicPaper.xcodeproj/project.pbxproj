@@ -17,11 +17,12 @@
 		5F87B129212868EF00402A24 /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87B128212868EF00402A24 /* Routes.swift */; };
 		5F87B12B21286CA500402A24 /* RequestParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87B12A21286CA500402A24 /* RequestParams.swift */; };
 		5F87B12D2128788900402A24 /* NetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87B12C2128788900402A24 /* NetworkProvider.swift */; };
-		5F87B12F212880E000402A24 /* PixaBayDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87B12E212880E000402A24 /* PixaBayDataManager.swift */; };
+		5F87B12F212880E000402A24 /* PixabayDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87B12E212880E000402A24 /* PixabayDataManager.swift */; };
 		5F87B131212880ED00402A24 /* Fetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87B130212880ED00402A24 /* Fetchable.swift */; };
 		5F87B133212881AF00402A24 /* NetworkFetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87B132212881AF00402A24 /* NetworkFetchable.swift */; };
 		5F87B1352128846E00402A24 /* LocalFetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87B1342128846E00402A24 /* LocalFetchable.swift */; };
 		5F87B13721288A9F00402A24 /* PixabayPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87B13621288A9F00402A24 /* PixabayPicture.swift */; };
+		5F87B13A2128BA1900402A24 /* PixabayContentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87B1392128BA1900402A24 /* PixabayContentItem.swift */; };
 		8287CE9AB21D4A3DA73842A5 /* Pods_PicPaperTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F0D9621FF3F67C92B29D752 /* Pods_PicPaperTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -53,11 +54,12 @@
 		5F87B128212868EF00402A24 /* Routes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routes.swift; sourceTree = "<group>"; };
 		5F87B12A21286CA500402A24 /* RequestParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestParams.swift; sourceTree = "<group>"; };
 		5F87B12C2128788900402A24 /* NetworkProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProvider.swift; sourceTree = "<group>"; };
-		5F87B12E212880E000402A24 /* PixaBayDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixaBayDataManager.swift; sourceTree = "<group>"; };
+		5F87B12E212880E000402A24 /* PixabayDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixabayDataManager.swift; sourceTree = "<group>"; };
 		5F87B130212880ED00402A24 /* Fetchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fetchable.swift; sourceTree = "<group>"; };
 		5F87B132212881AF00402A24 /* NetworkFetchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkFetchable.swift; sourceTree = "<group>"; };
 		5F87B1342128846E00402A24 /* LocalFetchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFetchable.swift; sourceTree = "<group>"; };
 		5F87B13621288A9F00402A24 /* PixabayPicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixabayPicture.swift; sourceTree = "<group>"; };
+		5F87B1392128BA1900402A24 /* PixabayContentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixabayContentItem.swift; sourceTree = "<group>"; };
 		9E68F77951CA12651199F75D /* Pods-PicPaperTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicPaperTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PicPaperTests/Pods-PicPaperTests.release.xcconfig"; sourceTree = "<group>"; };
 		C0C6B08E3AB8D0A7C65C96B2 /* Pods-PicPaper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicPaper.release.xcconfig"; path = "Pods/Target Support Files/Pods-PicPaper/Pods-PicPaper.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -116,11 +118,10 @@
 		5F87B1052128631600402A24 /* PicPaper */ = {
 			isa = PBXGroup;
 			children = (
-				5F87B1272128683600402A24 /* Networking */,
-				5F87B12E212880E000402A24 /* PixaBayDataManager.swift */,
-				5F87B13621288A9F00402A24 /* PixabayPicture.swift */,
 				5F87B1062128631600402A24 /* AppDelegate.swift */,
 				5F87B1082128631600402A24 /* ViewController.swift */,
+				5F87B1272128683600402A24 /* Networking */,
+				5F87B1382128B92400402A24 /* Pixabay */,
 				5F87B10A2128631600402A24 /* Main.storyboard */,
 				5F87B10D2128631800402A24 /* Assets.xcassets */,
 				5F87B10F2128631800402A24 /* LaunchScreen.storyboard */,
@@ -149,6 +150,16 @@
 				5F87B1342128846E00402A24 /* LocalFetchable.swift */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		5F87B1382128B92400402A24 /* Pixabay */ = {
+			isa = PBXGroup;
+			children = (
+				5F87B12E212880E000402A24 /* PixabayDataManager.swift */,
+				5F87B1392128BA1900402A24 /* PixabayContentItem.swift */,
+				5F87B13621288A9F00402A24 /* PixabayPicture.swift */,
+			);
+			path = Pixabay;
 			sourceTree = "<group>";
 		};
 		606ABA349E9187361D4A13B3 /* Frameworks */ = {
@@ -273,6 +284,7 @@
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -281,6 +293,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -346,13 +359,14 @@
 			files = (
 				5F87B1092128631600402A24 /* ViewController.swift in Sources */,
 				5F87B133212881AF00402A24 /* NetworkFetchable.swift in Sources */,
+				5F87B13A2128BA1900402A24 /* PixabayContentItem.swift in Sources */,
 				5F87B129212868EF00402A24 /* Routes.swift in Sources */,
 				5F87B1352128846E00402A24 /* LocalFetchable.swift in Sources */,
 				5F87B12D2128788900402A24 /* NetworkProvider.swift in Sources */,
 				5F87B13721288A9F00402A24 /* PixabayPicture.swift in Sources */,
 				5F87B1072128631600402A24 /* AppDelegate.swift in Sources */,
 				5F87B12B21286CA500402A24 /* RequestParams.swift in Sources */,
-				5F87B12F212880E000402A24 /* PixaBayDataManager.swift in Sources */,
+				5F87B12F212880E000402A24 /* PixabayDataManager.swift in Sources */,
 				5F87B131212880ED00402A24 /* Fetchable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
