@@ -21,6 +21,10 @@ class PixabayDataManager {
         return fetchable.get(url: url, parameters: parameters)
     }
 
+    func downloadPicture(_ picture: PixabayPicture) -> Promise<Data> {
+        return fetchable.get(url: picture.imageUrl)
+    }
+
     func getVideos(parameters: Params) -> Promise<String> {
         let url = Routes.url(for: .video)
         return Promise { seal in

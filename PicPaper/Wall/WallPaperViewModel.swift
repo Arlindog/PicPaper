@@ -10,8 +10,7 @@ import IGListKit
 import RxSwift
 import RxCocoa
 
-class WallPaperViewModel: NSObject, ListAdapterDataSource {
-
+class WallPaperViewModel: NSObject, ListAdapterDataSource, PictureSectionViewModelDelegate {
     lazy var adapter: ListAdapter = {
         let adapter = ListAdapter(updater: ListAdapterUpdater(), viewController: nil)
         adapter.dataSource = self
@@ -64,6 +63,7 @@ class WallPaperViewModel: NSObject, ListAdapterDataSource {
     private func generateViewModels(from contentItems: PixabayContentItem<PixabayPicture>) -> [WallPaperSectionViewModel] {
         return contentItems.items.map { (picture) in
             let pictureViewModel = PictureSectionViewModel(picture: picture)
+            pictureViewModel.delegate = self
             return WallPaperSectionViewModel(mediacontent: [pictureViewModel])
         }
     }
@@ -84,5 +84,17 @@ class WallPaperViewModel: NSObject, ListAdapterDataSource {
 
     func emptyView(for listAdapter: ListAdapter) -> UIView? {
         return nil
+    }
+
+    // MARK: PictureSectionViewModelDelegate
+
+    func savePicture(_ picture: PixabayPicture) {
+        dataManager.downloadPicture(picture)
+            .compactMap { UIImage(data: $0) }
+            .done { image in
+                UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+            }.catch {
+                print("Error downloading image: \($0)")
+            }
     }
 }

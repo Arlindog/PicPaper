@@ -19,7 +19,7 @@ struct Routes {
     enum Endpoint {
         case picture
         case video
-        case user(String, String)
+        case user(String, Int)
         case staticVideoImage(String, String)
 
         var url: String {

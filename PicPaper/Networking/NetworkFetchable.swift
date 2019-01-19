@@ -17,4 +17,12 @@ class NetworkFetchable: Fetchable {
             provider.get(seal: seal, url: url, parameters: parameters)
         }
     }
+
+    func get(url: String) -> Promise<Data> {
+        return Promise { seal in
+            provider.get(url: url) { (response) in
+                seal.resolve(response.error, response.data)
+            }
+        }
+    }
 }

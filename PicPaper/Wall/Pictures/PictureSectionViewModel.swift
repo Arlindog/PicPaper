@@ -8,6 +8,10 @@
 
 import IGListKit
 
+protocol PictureSectionViewModelDelegate: class {
+    func savePicture(_ picture: PixabayPicture)
+}
+
 class PictureSectionViewModel: NSObject, SectionViewModel {
 
     private struct Constants {
@@ -16,8 +20,8 @@ class PictureSectionViewModel: NSObject, SectionViewModel {
         static let pictureCellToolbarHeight: CGFloat = 60
     }
 
+    weak var delegate: PictureSectionViewModelDelegate?
     var adapter: ListAdapter?
-
     var sectionController: BaseSectionController = PictureSectionController()
 
     let picture: PixabayPicture
@@ -40,9 +44,12 @@ class PictureSectionViewModel: NSObject, SectionViewModel {
         return isEqual(object)
     }
 
-    /// Opens Actionsheet to allow user to open either the user's profile
-    /// or the full image in Pixabay
-    func openMoreInfo() {
+    func openUserProfile() {
+        guard let profileUrl = URL(string: picture.userProfileUrl) else { return }
+        UIApplication.shared.open(profileUrl, options: [:], completionHandler: nil)
+    }
 
+    func saveImage() {
+        delegate?.savePicture(picture)
     }
 }

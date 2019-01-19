@@ -12,6 +12,7 @@ struct PixabayPicture: Decodable {
 
     enum CodingKeys: String, CodingKey {
         case fullPageUrl = "pageURL"
+        case id
         case imageUrl = "largeImageURL"
         case imageWidth
         case imageHeight
@@ -25,6 +26,7 @@ struct PixabayPicture: Decodable {
 
     let fullPageUrl: String
 
+    let id: Int
     let imageUrl: String
     let imageWidth: Int
     let imageHeight: Int
@@ -36,4 +38,8 @@ struct PixabayPicture: Decodable {
     let username: String
     let userId: Int
     let userImageUrl: String
+
+    var userProfileUrl: String {
+        return Routes.url(for: .user(username, userId))
+    }
 }

@@ -36,13 +36,13 @@ class NetworkProvider {
         manager = Alamofire.SessionManager(configuration: configuration)
     }
 
-    private func get(url: String, parameters: Params?, completion: @escaping (DataResponse<Data>) -> Void) {
+    func get(url: String, parameters: Params? = nil, completion: @escaping (DataResponse<Data>) -> Void) {
         manager.request(url, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil)
             .validate()
             .responseData { completion($0) }
     }
 
-    func get<Object: Decodable>(seal: Resolver<Object>, url: String, parameters: Params?) {
+    func get<Object: Decodable>(seal: Resolver<Object>, url: String, parameters: Params? = nil) {
         get(url: url, parameters: parameters) { response in
             if let error = response.error {
                 seal.reject(NetworkProviderError.networkError(error))

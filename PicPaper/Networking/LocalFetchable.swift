@@ -13,4 +13,8 @@ class LocalFetchable: Fetchable {
     func get<Object: Decodable>(url: String, parameters: Params?) -> Promise<Object> {
         return Promise(error: NetworkProviderError.noData)
     }
+
+    func get(url: String) -> Promise<Data> {
+        return Promise(error: NetworkProviderError.noData)
+    }
 }

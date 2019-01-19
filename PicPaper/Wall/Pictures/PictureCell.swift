@@ -22,9 +22,9 @@ class PictureCell: UICollectionViewCell {
     private var trashBag = DisposeBag()
 
     @IBOutlet weak var pictureImageView: UIImageView!
-    @IBOutlet weak var userImageView: UIImageView!
+    @IBOutlet weak var userImageButton: UIButton!
     @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var moreInfoButton: UIButton!
+    @IBOutlet weak var downloadButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
     override func prepareForReuse() {
@@ -34,7 +34,7 @@ class PictureCell: UICollectionViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        userImageView.layer.cornerRadius = Constants.userImageViewSizeDimension / 2
+        userImageButton.layer.cornerRadius = Constants.userImageViewSizeDimension / 2
     }
 
     func configure(with viewModel: PictureSectionViewModel) {
@@ -49,19 +49,24 @@ class PictureCell: UICollectionViewCell {
             }
         }
 
-        userImageView.sd_cancelCurrentAnimationImagesLoad()
-        userImageView.sd_setImage(with: URL(string: viewModel.picture.userImageUrl)) { [weak self] (_, error, _, _) in
+        userImageButton.sd_cancelCurrentImageLoad()
+        userImageButton.sd_setImage(with: URL(string: viewModel.picture.userImageUrl), for: .normal) { [weak self] (_, error, _, _) in
             if let error = error {
                 print("Error Loading User Image at \(viewModel.picture.userImageUrl): \(error)")
-                self?.userImageView.image = #imageLiteral(resourceName: "profile").withRenderingMode(.alwaysTemplate)
+                self?.userImageButton.setImage(#imageLiteral(resourceName: "profile").withRenderingMode(.alwaysTemplate), for: .normal)
             }
         }
 
         usernameLabel.text = viewModel.picture.username
 
-        moreInfoButton.rx.tap
+        userImageButton.rx.tap
             .subscribe(onNext: {
-                viewModel.openMoreInfo()
+                viewModel.openUserProfile()
+            }).disposed(by: trashBag)
+
+        downloadButton.rx.tap
+            .subscribe(onNext: {
+                viewModel.saveImage()
             }).disposed(by: trashBag)
     }
 }
