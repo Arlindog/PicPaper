@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DownloadingView" customModule="PicPaper" customModuleProvider="target">
+            <connections>
+                <outlet property="activityIndicator" destination="Yg1-Kj-qUE" id="B3o-YJ-5Od"/>
+                <outlet property="closeButton" destination="yW7-jD-IwY" id="h4D-to-vJ1"/>
+                <outlet property="imageView" destination="mBe-7h-EXH" id="NTs-sd-RGC"/>
+                <outlet property="statusLabel" destination="VUi-Od-nsR" id="f5u-iX-MwL"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="250" height="300"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="error_view" translatesAutoresizingMaskIntoConstraints="NO" id="mBe-7h-EXH">
+                    <rect key="frame" x="8" y="8" width="234" height="209"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </imageView>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Yg1-Kj-qUE">
+                    <rect key="frame" x="37" y="225.5" width="20" height="20"/>
+                </activityIndicatorView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Downloading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VUi-Od-nsR">
+                    <rect key="frame" x="65" y="225" width="120" height="21"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yW7-jD-IwY">
+                    <rect key="frame" x="8" y="262" width="234" height="30"/>
+                    <color key="backgroundColor" red="0.5" green="0.5" blue="0.5" alpha="0.18613006161971832" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                    <state key="normal" title="Close">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="close" destination="-1" eventType="touchUpInside" id="kTt-hI-cWE"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.083859573837388957" green="0.083859573837388957" blue="0.083859573837388957" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="VUi-Od-nsR" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="B3g-nb-eM0"/>
+                <constraint firstItem="mBe-7h-EXH" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="8" id="Cn8-xy-2GD"/>
+                <constraint firstItem="yW7-jD-IwY" firstAttribute="top" secondItem="VUi-Od-nsR" secondAttribute="bottom" constant="16" id="LDg-UJ-OXQ"/>
+                <constraint firstItem="VUi-Od-nsR" firstAttribute="leading" secondItem="Yg1-Kj-qUE" secondAttribute="trailing" constant="8" id="Oz9-HB-60J"/>
+                <constraint firstItem="VUi-Od-nsR" firstAttribute="centerY" secondItem="Yg1-Kj-qUE" secondAttribute="centerY" id="UEg-nF-ELt"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="yW7-jD-IwY" secondAttribute="bottom" constant="8" id="aVP-Cd-hJ8"/>
+                <constraint firstItem="yW7-jD-IwY" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="8" id="bIK-IW-S7Z"/>
+                <constraint firstItem="VUi-Od-nsR" firstAttribute="top" relation="greaterThanOrEqual" secondItem="mBe-7h-EXH" secondAttribute="bottom" constant="8" id="ePC-86-txd"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="yW7-jD-IwY" secondAttribute="trailing" constant="8" id="fWC-7c-Jcb"/>
+                <constraint firstItem="mBe-7h-EXH" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="jrg-bc-9x2"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="mBe-7h-EXH" secondAttribute="trailing" constant="8" id="ui9-D5-jyC"/>
+                <constraint firstItem="mBe-7h-EXH" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="8" id="wRT-Ix-YBq"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="27.199999999999999" y="168.21589205397302"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="error_view" width="512" height="512"/>
+    </resources>
+</document>

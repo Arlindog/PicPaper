@@ -10,6 +10,37 @@ import IGListKit
 import RxSwift
 import RxCocoa
 
+enum RequestState: Equatable {
+    static func == (lhs: RequestState, rhs: RequestState) -> Bool {
+        switch (lhs, rhs) {
+        case (.downloading, .downloading):
+            return true
+        case (.idle,.idle):
+            return true
+        case (.loadingWallPaper,.loadingWallPaper):
+            return true
+        case (.error, .error):
+            return true
+        default:
+            return false
+        }
+    }
+
+    case idle
+    case loadingWallPaper
+    case downloading(PixabayPicture)
+    case error(Error)
+
+    var isDownloading: Bool {
+        switch self {
+        case .downloading:
+            return true
+        default:
+            return false
+        }
+    }
+}
+
 class WallPaperViewModel: NSObject, ListAdapterDataSource, PictureSectionViewModelDelegate {
     lazy var adapter: ListAdapter = {
         let adapter = ListAdapter(updater: ListAdapterUpdater(), viewController: nil)
@@ -21,6 +52,8 @@ class WallPaperViewModel: NSObject, ListAdapterDataSource, PictureSectionViewMod
     private let dataManager = PixabayDataManager()
 
     private let wallPaperData = BehaviorRelay<[SectionViewModel]>(value: [])
+
+    let requestState: BehaviorRelay<RequestState> = BehaviorRelay(value: .idle)
 
     override init() {
         super.init()
@@ -50,13 +83,16 @@ class WallPaperViewModel: NSObject, ListAdapterDataSource, PictureSectionViewMod
             .page(1),
             .searchTerm(["wilderness"])
         ])
+        requestState.accept(.loadingWallPaper)
         dataManager.getPictures(parameters: params)
-            .done { [weak self] (picureContent) in
+            .ensure { [weak self] in
+                self?.requestState.accept(.idle)
+            }.done { [weak self] (picureContent) in
                 if let wallpaperSectionViewModels = self?.generateViewModels(from: picureContent) {
                     self?.wallPaperData.accept(wallpaperSectionViewModels)
                 }
-            }.catch { error in
-                print(error)
+            }.catch { [weak self] error in
+                self?.requestState.accept(.error(error))
             }
     }
 
@@ -89,12 +125,17 @@ class WallPaperViewModel: NSObject, ListAdapterDataSource, PictureSectionViewMod
     // MARK: PictureSectionViewModelDelegate
 
     func savePicture(_ picture: PixabayPicture) {
+        requestState.accept(.downloading(picture))
         dataManager.downloadPicture(picture)
-            .compactMap { UIImage(data: $0) }
-            .done { image in
+            .ensure { [weak self] in
+                self?.requestState.accept(.idle)
+            }.compactMap {
+                UIImage(data: $0)
+            }.done { image in
                 UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-            }.catch {
-                print("Error downloading image: \($0)")
+            }.catch { [weak self] error in
+                print("Error downloading image: \(error)")
+                self?.requestState.accept(.error(error))
             }
     }
 }
