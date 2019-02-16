@@ -1,0 +1,5 @@
+language: objective-c
+osx_image: xcode10.1
+xcode_workspace: PicPaper.xcworkspace
+xcode_destination: platform=iOS Simulator,OS=11.3,name=iPhone X
+xcode_scheme: PicPaper
