@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import SVPullToRefresh
 
 class WallPaperViewController: UIViewController, DownloadingViewDelegate {
 
@@ -24,6 +25,7 @@ class WallPaperViewController: UIViewController, DownloadingViewDelegate {
     }()
 
     private let downloadingView = DownloadingView()
+    private let refreshControl = UIRefreshControl()
 
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -37,6 +39,7 @@ class WallPaperViewController: UIViewController, DownloadingViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        loadWall(requestType: .standard)
     }
 
     private func setup() {
@@ -55,6 +58,21 @@ class WallPaperViewController: UIViewController, DownloadingViewDelegate {
          collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
          collectionView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ].forEach { $0.isActive = true }
+
+        refreshControl.addTarget(self, action: #selector(performPullToRefresh), for: .valueChanged)
+        collectionView.refreshControl = refreshControl
+
+        collectionView.addInfiniteScrolling { [weak self] in
+            self?.loadWall(requestType: .pagination)
+        }
+        collectionView.infiniteScrollingView.activityIndicatorViewStyle = .white
+
+        viewModel.requestState.asDriver()
+            .filter { $0 != .loadingWallPaper }
+            .drive(onNext: { [unowned self] _ in
+                self.collectionView.infiniteScrollingView.stopAnimating()
+                self.refreshControl.endRefreshing()
+            }).disposed(by: trashBag)
     }
 
     func setupActivityIndicator() {
@@ -88,20 +106,19 @@ class WallPaperViewController: UIViewController, DownloadingViewDelegate {
     }
 
     func setupViewModel() {
-        viewModel.requestState
+        viewModel.requestState.asDriver()
             .filter { !$0.isDownloading }
             .map { $0 == .loadingWallPaper }
-            .bind(to: activityIndicator.rx.isAnimating)
+            .drive(activityIndicator.rx.isAnimating)
             .disposed(by: trashBag)
 
-        viewModel.requestState.asObservable()
+        viewModel.requestState.asDriver()
             .filter { $0.isDownloading }
-            .bind(onNext: showDownloadingView)
+            .drive(onNext: showDownloadingView)
             .disposed(by: trashBag)
 
         viewModel.setViewController(self)
         viewModel.setCollectionView(collectionView)
-        viewModel.requstWallPaperData()
     }
 
     func showDownloadingView(with requestState: RequestState) {
@@ -112,6 +129,14 @@ class WallPaperViewController: UIViewController, DownloadingViewDelegate {
             self.blurView.alpha = 1.0
             self.downloadingView.alpha = 1.0
         }
+    }
+
+    @objc func performPullToRefresh() {
+        loadWall(requestType: .pullToRefresh)
+    }
+
+    func loadWall(requestType: WallRequestType) {
+        viewModel.requstWallPaperData(requestType: requestType)
     }
 
     // MARK: DownloadingViewDelegate
