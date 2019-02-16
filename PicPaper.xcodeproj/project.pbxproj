@@ -38,6 +38,7 @@
 		5FDC6F6721F4F9A800EF6113 /* DownloadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC6F6621F4F9A800EF6113 /* DownloadingView.swift */; };
 		5FDC6F6921F4F9B500EF6113 /* DownloadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FDC6F6821F4F9B500EF6113 /* DownloadingView.xib */; };
 		5FDC6F6C21F4FA2600EF6113 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC6F6B21F4FA2600EF6113 /* UIView+Extensions.swift */; };
+		5FDC6F6F21F51DAB00EF6113 /* PhotoLibraryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC6F6E21F51DAB00EF6113 /* PhotoLibraryManager.swift */; };
 		8287CE9AB21D4A3DA73842A5 /* Pods_PicPaperTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F0D9621FF3F67C92B29D752 /* Pods_PicPaperTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -90,6 +91,7 @@
 		5FDC6F6621F4F9A800EF6113 /* DownloadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadingView.swift; sourceTree = "<group>"; };
 		5FDC6F6821F4F9B500EF6113 /* DownloadingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DownloadingView.xib; sourceTree = "<group>"; };
 		5FDC6F6B21F4FA2600EF6113 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		5FDC6F6E21F51DAB00EF6113 /* PhotoLibraryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibraryManager.swift; sourceTree = "<group>"; };
 		9E68F77951CA12651199F75D /* Pods-PicPaperTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicPaperTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PicPaperTests/Pods-PicPaperTests.release.xcconfig"; sourceTree = "<group>"; };
 		C0C6B08E3AB8D0A7C65C96B2 /* Pods-PicPaper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicPaper.release.xcconfig"; path = "Pods/Target Support Files/Pods-PicPaper/Pods-PicPaper.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -148,6 +150,7 @@
 		5F87B1052128631600402A24 /* PicPaper */ = {
 			isa = PBXGroup;
 			children = (
+				5FDC6F6D21F51D9900EF6113 /* Managers */,
 				5FDC6F6A21F4FA1700EF6113 /* Extensions */,
 				5FDC6F6521F4F91200EF6113 /* Loading */,
 				5F87B1062128631600402A24 /* AppDelegate.swift */,
@@ -269,6 +272,14 @@
 				5FDC6F6B21F4FA2600EF6113 /* UIView+Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		5FDC6F6D21F51D9900EF6113 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				5FDC6F6E21F51DAB00EF6113 /* PhotoLibraryManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		606ABA349E9187361D4A13B3 /* Frameworks */ = {
@@ -485,6 +496,7 @@
 				5F87B1552132F0D700402A24 /* PictureSectionViewModel.swift in Sources */,
 				5F87B13E2128CB0800402A24 /* WallPaperViewModel.swift in Sources */,
 				5FDC6F6C21F4FA2600EF6113 /* UIView+Extensions.swift in Sources */,
+				5FDC6F6F21F51DAB00EF6113 /* PhotoLibraryManager.swift in Sources */,
 				5F87B12D2128788900402A24 /* NetworkProvider.swift in Sources */,
 				5F87B1452128D16600402A24 /* SectionController.swift in Sources */,
 				5F87B13721288A9F00402A24 /* PixabayPicture.swift in Sources */,
