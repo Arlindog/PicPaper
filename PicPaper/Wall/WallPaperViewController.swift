@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 import SVPullToRefresh
 
-class WallPaperViewController: UIViewController, DownloadingViewDelegate {
+class WallPaperViewController: UIViewController, WallPaperViewModelDelegate, DownloadingViewDelegate, PhotoPermissionViewDelegate {
 
     private let trashBag = DisposeBag()
     private let viewModel = WallPaperViewModel()
@@ -24,6 +24,7 @@ class WallPaperViewController: UIViewController, DownloadingViewDelegate {
         return blurEffectView
     }()
 
+    private let photoPermissionView = PhotoPermissionView()
     private let downloadingView = DownloadingView()
     private let refreshControl = UIRefreshControl()
 
@@ -40,6 +41,11 @@ class WallPaperViewController: UIViewController, DownloadingViewDelegate {
         super.viewDidLoad()
         setup()
         loadWall(requestType: .standard)
+
+        guard !PhotoLibraryManager.shared.hasRequestedAutorization else { return }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
+            self?.showPhotoPermissionView()
+        }
     }
 
     private func setup() {
@@ -48,6 +54,7 @@ class WallPaperViewController: UIViewController, DownloadingViewDelegate {
         setupCollectionView()
         setupActivityIndicator()
         setupDownloadingView()
+        setupPermissionView()
         setupViewModel()
     }
 
@@ -106,6 +113,7 @@ class WallPaperViewController: UIViewController, DownloadingViewDelegate {
     }
 
     func setupViewModel() {
+        viewModel.delegate = self
         viewModel.requestState.asDriver()
             .filter { !$0.isDownloading }
             .map { $0 == .loadingWallPaper }
@@ -119,6 +127,29 @@ class WallPaperViewController: UIViewController, DownloadingViewDelegate {
 
         viewModel.setViewController(self)
         viewModel.setCollectionView(collectionView)
+    }
+
+    func setupPermissionView() {
+        photoPermissionView.alpha = 0.0
+        photoPermissionView.delegate = self
+        photoPermissionView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(photoPermissionView)
+
+        let permissionViewWidth: CGFloat = view.bounds.width - 32
+        [photoPermissionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+         photoPermissionView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+         photoPermissionView.heightAnchor.constraint(equalToConstant: permissionViewWidth),
+         photoPermissionView.widthAnchor.constraint(equalToConstant: permissionViewWidth)
+        ].forEach { $0.isActive = true }
+    }
+
+    // MARK: WallPaperViewModelDelegate
+
+    func showPhotoPermissionView() {
+        UIView.animate(withDuration: 0.3) {
+            self.blurView.alpha = 1.0
+            self.photoPermissionView.alpha = 1.0
+        }
     }
 
     func showDownloadingView(with requestState: RequestState) {
@@ -145,6 +176,15 @@ class WallPaperViewController: UIViewController, DownloadingViewDelegate {
         UIView.animate(withDuration: 0.3) {
             self.blurView.alpha = 0.0
             self.downloadingView.alpha = 0.0
+        }
+    }
+
+    // MARK: PhotoPermissionViewDelegate
+
+    func closePhotoPermissionView() {
+        UIView.animate(withDuration: 0.3) {
+            self.blurView.alpha = 0.0
+            self.photoPermissionView.alpha = 0.0
         }
     }
 }

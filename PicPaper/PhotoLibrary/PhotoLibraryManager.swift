@@ -18,23 +18,27 @@ class PhotoLibraryManager {
         return UserDefaults.standard.hasRequestedPhotoLibraryAutorization
     }
 
+    var status: PHAuthorizationStatus {
+        return PHPhotoLibrary.authorizationStatus()
+    }
+
     var isAuthorized: Bool {
         return PHPhotoLibrary.authorizationStatus() == .authorized
     }
 
-    func requestAuthorization() -> Observable<Bool> {
-        guard !isAuthorized else { return Observable.just(true) }
+    var isDenied: Bool {
+        let authorizationStatus = PHPhotoLibrary.authorizationStatus()
+        return authorizationStatus == .denied || authorizationStatus == .restricted
+    }
+
+    func requestAuthorization() -> Observable<PHAuthorizationStatus> {
+        guard !isAuthorized else { return Observable.just(.authorized) }
         if !hasRequestedAutorization {
             UserDefaults.standard.hasRequestedPhotoLibraryAutorization = true
         }
         return Observable.create { (obserable) in
             PHPhotoLibrary.requestAuthorization { status in
-                switch status {
-                case .authorized:
-                    obserable.on(.next(true))
-                case .denied, .restricted, .notDetermined:
-                    obserable.on(.next(false))
-                }
+                obserable.on(.next(status))
             }
             return Disposables.create()
         }
