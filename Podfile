@@ -8,7 +8,8 @@ target 'PicPaper' do
   pod 'PromiseKit'
   pod 'RxSwift'
   pod 'RxCocoa'
-  pod 'SDWebImage'  
+  pod 'SDWebImage'
+  pod 'SVPullToRefresh'
 
   target 'PicPaperTests' do
       inherit! :search_paths

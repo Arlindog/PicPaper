@@ -33,6 +33,7 @@
 		5F87B1532132F0C400402A24 /* PictureSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87B1522132F0C400402A24 /* PictureSectionController.swift */; };
 		5F87B1552132F0D700402A24 /* PictureSectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87B1542132F0D700402A24 /* PictureSectionViewModel.swift */; };
 		5F87B1572132F0E500402A24 /* PictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87B1562132F0E500402A24 /* PictureCell.swift */; };
+		5F958BA522189AFB00CE656C /* WallRequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F958BA422189AFB00CE656C /* WallRequestType.swift */; };
 		5FDC6F6421EED06100EF6113 /* PictureCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FDC6F6321EED06100EF6113 /* PictureCell.xib */; };
 		5FDC6F6721F4F9A800EF6113 /* DownloadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC6F6621F4F9A800EF6113 /* DownloadingView.swift */; };
 		5FDC6F6921F4F9B500EF6113 /* DownloadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FDC6F6821F4F9B500EF6113 /* DownloadingView.xib */; };
@@ -84,6 +85,7 @@
 		5F87B1522132F0C400402A24 /* PictureSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureSectionController.swift; sourceTree = "<group>"; };
 		5F87B1542132F0D700402A24 /* PictureSectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureSectionViewModel.swift; sourceTree = "<group>"; };
 		5F87B1562132F0E500402A24 /* PictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureCell.swift; sourceTree = "<group>"; };
+		5F958BA422189AFB00CE656C /* WallRequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallRequestType.swift; sourceTree = "<group>"; };
 		5FDC6F6321EED06100EF6113 /* PictureCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PictureCell.xib; sourceTree = "<group>"; };
 		5FDC6F6621F4F9A800EF6113 /* DownloadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadingView.swift; sourceTree = "<group>"; };
 		5FDC6F6821F4F9B500EF6113 /* DownloadingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DownloadingView.xib; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 				5F87B14E2131AB7A00402A24 /* WallPaperSectionController.swift */,
 				5F87B1502131ABAA00402A24 /* WallPaperSectionViewModel.swift */,
 				5F87B1582132F0EE00402A24 /* Pictures */,
+				5F958BA422189AFB00CE656C /* WallRequestType.swift */,
 			);
 			path = Wall;
 			sourceTree = "<group>";
@@ -393,6 +396,7 @@
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SVPullToRefresh/SVPullToRefresh.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -402,6 +406,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVPullToRefresh.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -468,6 +473,7 @@
 				5F87B14D2131A9DB00402A24 /* BaseSectionController.swift in Sources */,
 				5F87B133212881AF00402A24 /* NetworkFetchable.swift in Sources */,
 				5F87B14F2131AB7A00402A24 /* WallPaperSectionController.swift in Sources */,
+				5F958BA522189AFB00CE656C /* WallRequestType.swift in Sources */,
 				5F87B1512131ABAA00402A24 /* WallPaperSectionViewModel.swift in Sources */,
 				5F87B1492128D63800402A24 /* SectionViewModel.swift in Sources */,
 				5FDC6F6721F4F9A800EF6113 /* DownloadingView.swift in Sources */,

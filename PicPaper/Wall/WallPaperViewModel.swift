@@ -15,9 +15,9 @@ enum RequestState: Equatable {
         switch (lhs, rhs) {
         case (.downloading, .downloading):
             return true
-        case (.idle,.idle):
+        case (.idle, .idle):
             return true
-        case (.loadingWallPaper,.loadingWallPaper):
+        case (.loadingWallPaper, .loadingWallPaper):
             return true
         case (.error, .error):
             return true
@@ -42,6 +42,10 @@ enum RequestState: Equatable {
 }
 
 class WallPaperViewModel: NSObject, ListAdapterDataSource, PictureSectionViewModelDelegate {
+    private struct Constants {
+        static let defaultPictureLimit: Int = 5
+        static let startingWallPage: Int = 1
+    }
     lazy var adapter: ListAdapter = {
         let adapter = ListAdapter(updater: ListAdapterUpdater(), viewController: nil)
         adapter.dataSource = self
@@ -54,6 +58,7 @@ class WallPaperViewModel: NSObject, ListAdapterDataSource, PictureSectionViewMod
     private let wallPaperData = BehaviorRelay<[SectionViewModel]>(value: [])
 
     let requestState: BehaviorRelay<RequestState> = BehaviorRelay(value: .idle)
+    private var currentWallPage = Constants.startingWallPage
 
     override init() {
         super.init()
@@ -75,22 +80,39 @@ class WallPaperViewModel: NSObject, ListAdapterDataSource, PictureSectionViewMod
         adapter.collectionView = collectionView
     }
 
-    func requstWallPaperData() {
+    func requstWallPaperData(requestType: WallRequestType) {
+        requestState.accept(.loadingWallPaper)
+
+        let shouldResetWallPage: Bool
+        switch requestType {
+        case .standard:
+            wallPaperData.accept([])
+            shouldResetWallPage = true
+        case .pullToRefresh:
+            shouldResetWallPage = false
+        case .pagination:
+            shouldResetWallPage = false
+        }
+
+        if currentWallPage != Constants.startingWallPage && shouldResetWallPage {
+            currentWallPage = Constants.startingWallPage
+        }
+
         let params = RequestParams.buildParams(values: [
             .order(.popular),
             .safeSearch(true),
-            .resultCount(100),
-            .page(1),
+            .resultCount(Constants.defaultPictureLimit),
+            .page(currentWallPage),
             .searchTerm(["wilderness"])
         ])
-        requestState.accept(.loadingWallPaper)
+
         dataManager.getPictures(parameters: params)
             .ensure { [weak self] in
                 self?.requestState.accept(.idle)
-            }.done { [weak self] (picureContent) in
-                if let wallpaperSectionViewModels = self?.generateViewModels(from: picureContent) {
-                    self?.wallPaperData.accept(wallpaperSectionViewModels)
-                }
+            }
+            .map(generateViewModels)
+            .done { [weak self] wallpaperSectionViewModels in
+                self?.handleWallPaperResponse(with: wallpaperSectionViewModels, requestType: requestType)
             }.catch { [weak self] error in
                 self?.requestState.accept(.error(error))
             }
@@ -102,6 +124,17 @@ class WallPaperViewModel: NSObject, ListAdapterDataSource, PictureSectionViewMod
             pictureViewModel.delegate = self
             return WallPaperSectionViewModel(mediacontent: [pictureViewModel])
         }
+    }
+
+    private func handleWallPaperResponse(with sectionViewModels: [SectionViewModel], requestType: WallRequestType) {
+        switch requestType {
+        case .standard, .pullToRefresh:
+            wallPaperData.accept(sectionViewModels)
+        case .pagination:
+            let updatedSectionViewModels = wallPaperData.value + sectionViewModels
+            wallPaperData.accept(updatedSectionViewModels)
+        }
+        currentWallPage += 1
     }
 
     // MARK: ListAdapterDataSource
