@@ -14,8 +14,13 @@ class PhotoLibraryManager {
     static let shared = PhotoLibraryManager()
     private init() {}
 
-    var hasRequestedAutorization: Bool {
-        return UserDefaults.standard.hasRequestedPhotoLibraryAutorization
+    var hasShownAutorizationPrompt: Bool {
+        get {
+            return UserDefaults.standard.hasShownPhotoLibraryAutorizationPrompt
+        }
+        set {
+            UserDefaults.standard.hasShownPhotoLibraryAutorizationPrompt = newValue
+        }
     }
 
     var status: PHAuthorizationStatus {
@@ -33,9 +38,6 @@ class PhotoLibraryManager {
 
     func requestAuthorization() -> Observable<PHAuthorizationStatus> {
         guard !isAuthorized else { return Observable.just(.authorized) }
-        if !hasRequestedAutorization {
-            UserDefaults.standard.hasRequestedPhotoLibraryAutorization = true
-        }
         return Observable.create { (obserable) in
             PHPhotoLibrary.requestAuthorization { status in
                 obserable.on(.next(status))
@@ -47,10 +49,10 @@ class PhotoLibraryManager {
 
 fileprivate extension UserDefaults {
     private var photoLibraryAutorizationKey: String {
-        return "com.PicPaper.PhotoLibraryAutorization"
+        return "com.PicPaper.hasShownPhotoLibraryAutorizationPrompt"
     }
 
-    fileprivate var hasRequestedPhotoLibraryAutorization: Bool {
+    fileprivate var hasShownPhotoLibraryAutorizationPrompt: Bool {
         get {
             return UserDefaults.standard.bool(forKey: photoLibraryAutorizationKey)
         }

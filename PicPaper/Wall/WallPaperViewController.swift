@@ -42,7 +42,8 @@ class WallPaperViewController: UIViewController, WallPaperViewModelDelegate, Dow
         setup()
         loadWall(requestType: .standard)
 
-        guard !PhotoLibraryManager.shared.hasRequestedAutorization else { return }
+        guard !PhotoLibraryManager.shared.hasShownAutorizationPrompt else { return }
+        PhotoLibraryManager.shared.hasShownAutorizationPrompt = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
             self?.showPhotoPermissionView()
         }
