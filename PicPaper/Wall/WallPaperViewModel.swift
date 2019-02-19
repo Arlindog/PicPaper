@@ -65,7 +65,12 @@ class WallPaperViewModel: NSObject, ListAdapterDataSource, PictureSectionViewMod
     private let wallPaperData = BehaviorRelay<[SectionViewModel]>(value: [])
 
     let requestState: BehaviorRelay<RequestState> = BehaviorRelay(value: .idle)
+    private var currentSearchTerm = BehaviorRelay<String?>(value: nil)
     private var currentWallPage = Constants.startingWallPage
+
+    var searchTerm: Driver<String?> {
+        return currentSearchTerm.asDriver()
+    }
 
     override init() {
         super.init()
@@ -77,6 +82,13 @@ class WallPaperViewModel: NSObject, ListAdapterDataSource, PictureSectionViewMod
             .drive(onNext: { [unowned self] _ in
                 self.adapter.performUpdates(animated: true)
             }).disposed(by: trashBag)
+
+        currentSearchTerm
+            // skip the initial value
+            .skip(1)
+            .subscribe(onNext: { [unowned self] _ in
+                self.requstWallPaperData(requestType: .standard)
+            }).disposed(by: trashBag)
     }
 
     func setViewController(_ viewController: UIViewController) {
@@ -85,6 +97,14 @@ class WallPaperViewModel: NSObject, ListAdapterDataSource, PictureSectionViewMod
 
     func setCollectionView(_ collectionView: UICollectionView) {
         adapter.collectionView = collectionView
+    }
+
+    func configure(with searchBarViewModel: SearchBarViewModel) {
+        searchBarViewModel.currentSearchTerm
+            // skip the initial value
+            .skip(1)
+            .bind(to: currentSearchTerm)
+            .disposed(by: trashBag)
     }
 
     func requstWallPaperData(requestType: WallRequestType) {
@@ -105,13 +125,19 @@ class WallPaperViewModel: NSObject, ListAdapterDataSource, PictureSectionViewMod
             currentWallPage = Constants.startingWallPage
         }
 
-        let params = RequestParams.buildParams(values: [
+        var paramsValues: [RequestParams.ParamValues] = [
             .order(.popular),
             .safeSearch(true),
             .resultCount(Constants.defaultPictureLimit),
-            .page(currentWallPage),
-            .searchTerm(["wilderness"])
-        ])
+            .page(currentWallPage)
+        ]
+
+        if let searchTerm = currentSearchTerm.value,
+            !searchTerm.isEmpty {
+            paramsValues.append(.searchTerm([searchTerm]))
+        }
+
+        let params = RequestParams.buildParams(values: paramsValues)
 
         dataManager.getPictures(parameters: params)
             .ensure { [weak self] in
@@ -123,6 +149,10 @@ class WallPaperViewModel: NSObject, ListAdapterDataSource, PictureSectionViewMod
             }.catch { [weak self] error in
                 self?.requestState.accept(.error(error))
             }
+    }
+
+    func clearSearchTerm() {
+        currentSearchTerm.accept(nil)
     }
 
     private func generateViewModels(from contentItems: PixabayContentItem<PixabayPicture>) -> [WallPaperSectionViewModel] {

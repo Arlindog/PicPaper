@@ -39,6 +39,12 @@
 		5F958BAA2218FB7100CE656C /* PhotoPermissionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F958BA92218FB7100CE656C /* PhotoPermissionView.xib */; };
 		5F958BAC2219DA3D00CE656C /* PhotoPermissionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F958BAB2219DA3D00CE656C /* PhotoPermissionViewModel.swift */; };
 		5F958BAE2219DD8200CE656C /* UIView+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F958BAD2219DD8200CE656C /* UIView+Rx.swift */; };
+		5F958BB222230C1600CE656C /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F958BB122230C1600CE656C /* SearchBar.swift */; };
+		5F958BB822231D5C00CE656C /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F958BB722231D5C00CE656C /* Colors.swift */; };
+		5F958BBA2223211E00CE656C /* SearchBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F958BB92223211E00CE656C /* SearchBarViewModel.swift */; };
+		5F958BBC2223259200CE656C /* UITextField+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F958BBB2223259200CE656C /* UITextField+Rx.swift */; };
+		5F958BBE2223274600CE656C /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F958BBD2223274600CE656C /* SearchTextField.swift */; };
+		5F958BC02223565800CE656C /* UIResponder+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F958BBF2223565800CE656C /* UIResponder+Rx.swift */; };
 		5FDC6F6421EED06100EF6113 /* PictureCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FDC6F6321EED06100EF6113 /* PictureCell.xib */; };
 		5FDC6F6721F4F9A800EF6113 /* DownloadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC6F6621F4F9A800EF6113 /* DownloadingView.swift */; };
 		5FDC6F6921F4F9B500EF6113 /* DownloadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FDC6F6821F4F9B500EF6113 /* DownloadingView.xib */; };
@@ -97,6 +103,12 @@
 		5F958BA92218FB7100CE656C /* PhotoPermissionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotoPermissionView.xib; sourceTree = "<group>"; };
 		5F958BAB2219DA3D00CE656C /* PhotoPermissionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPermissionViewModel.swift; sourceTree = "<group>"; };
 		5F958BAD2219DD8200CE656C /* UIView+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Rx.swift"; sourceTree = "<group>"; };
+		5F958BB122230C1600CE656C /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		5F958BB722231D5C00CE656C /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		5F958BB92223211E00CE656C /* SearchBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarViewModel.swift; sourceTree = "<group>"; };
+		5F958BBB2223259200CE656C /* UITextField+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Rx.swift"; sourceTree = "<group>"; };
+		5F958BBD2223274600CE656C /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
+		5F958BBF2223565800CE656C /* UIResponder+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Rx.swift"; sourceTree = "<group>"; };
 		5FDC6F6321EED06100EF6113 /* PictureCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PictureCell.xib; sourceTree = "<group>"; };
 		5FDC6F6621F4F9A800EF6113 /* DownloadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadingView.swift; sourceTree = "<group>"; };
 		5FDC6F6821F4F9B500EF6113 /* DownloadingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DownloadingView.xib; sourceTree = "<group>"; };
@@ -161,6 +173,8 @@
 			isa = PBXGroup;
 			children = (
 				5F87B1062128631600402A24 /* AppDelegate.swift */,
+				5F958BB622231D4400CE656C /* Colors */,
+				5F958BB322230C1C00CE656C /* Searching */,
 				5F958BA62218FA9A00CE656C /* PhotoLibrary */,
 				5FDC6F6A21F4FA1700EF6113 /* Extensions */,
 				5FDC6F6521F4F91200EF6113 /* Loading */,
@@ -279,6 +293,24 @@
 			path = PhotoLibrary;
 			sourceTree = "<group>";
 		};
+		5F958BB322230C1C00CE656C /* Searching */ = {
+			isa = PBXGroup;
+			children = (
+				5F958BB92223211E00CE656C /* SearchBarViewModel.swift */,
+				5F958BB122230C1600CE656C /* SearchBar.swift */,
+				5F958BBD2223274600CE656C /* SearchTextField.swift */,
+			);
+			path = Searching;
+			sourceTree = "<group>";
+		};
+		5F958BB622231D4400CE656C /* Colors */ = {
+			isa = PBXGroup;
+			children = (
+				5F958BB722231D5C00CE656C /* Colors.swift */,
+			);
+			path = Colors;
+			sourceTree = "<group>";
+		};
 		5FDC6F6521F4F91200EF6113 /* Loading */ = {
 			isa = PBXGroup;
 			children = (
@@ -293,6 +325,8 @@
 			children = (
 				5FDC6F6B21F4FA2600EF6113 /* UIView+Extensions.swift */,
 				5F958BAD2219DD8200CE656C /* UIView+Rx.swift */,
+				5F958BBB2223259200CE656C /* UITextField+Rx.swift */,
+				5F958BBF2223565800CE656C /* UIResponder+Rx.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -501,6 +535,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F87B14D2131A9DB00402A24 /* BaseSectionController.swift in Sources */,
+				5F958BB822231D5C00CE656C /* Colors.swift in Sources */,
 				5F87B133212881AF00402A24 /* NetworkFetchable.swift in Sources */,
 				5F87B14F2131AB7A00402A24 /* WallPaperSectionController.swift in Sources */,
 				5F958BA82218FAEA00CE656C /* PhotoPermissionView.swift in Sources */,
@@ -508,7 +543,10 @@
 				5F958BA522189AFB00CE656C /* WallRequestType.swift in Sources */,
 				5F87B1512131ABAA00402A24 /* WallPaperSectionViewModel.swift in Sources */,
 				5F87B1492128D63800402A24 /* SectionViewModel.swift in Sources */,
+				5F958BBA2223211E00CE656C /* SearchBarViewModel.swift in Sources */,
 				5FDC6F6721F4F9A800EF6113 /* DownloadingView.swift in Sources */,
+				5F958BBC2223259200CE656C /* UITextField+Rx.swift in Sources */,
+				5F958BC02223565800CE656C /* UIResponder+Rx.swift in Sources */,
 				5F87B1572132F0E500402A24 /* PictureCell.swift in Sources */,
 				5F87B13A2128BA1900402A24 /* PixabayContentItem.swift in Sources */,
 				5F87B1472128D18600402A24 /* SectionCell.swift in Sources */,
@@ -518,7 +556,9 @@
 				5F87B13E2128CB0800402A24 /* WallPaperViewModel.swift in Sources */,
 				5FDC6F6C21F4FA2600EF6113 /* UIView+Extensions.swift in Sources */,
 				5FDC6F6F21F51DAB00EF6113 /* PhotoLibraryManager.swift in Sources */,
+				5F958BB222230C1600CE656C /* SearchBar.swift in Sources */,
 				5F87B12D2128788900402A24 /* NetworkProvider.swift in Sources */,
+				5F958BBE2223274600CE656C /* SearchTextField.swift in Sources */,
 				5F87B1452128D16600402A24 /* SectionController.swift in Sources */,
 				5F87B13721288A9F00402A24 /* PixabayPicture.swift in Sources */,
 				5F87B1072128631600402A24 /* AppDelegate.swift in Sources */,
@@ -692,7 +732,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AD3HGXXCSG;
 				INFOPLIST_FILE = PicPaper/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -714,7 +754,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AD3HGXXCSG;
 				INFOPLIST_FILE = PicPaper/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
