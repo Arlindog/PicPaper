@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PhotoPermissionView" customModule="PicPaper" customModuleProvider="target">
+            <connections>
+                <outlet property="closeButton" destination="b4k-wH-BZU" id="Vro-JZ-W5Z"/>
+                <outlet property="imageView" destination="FUN-XM-L5X" id="2zO-PX-30t"/>
+                <outlet property="permissionButton" destination="QfG-N8-Ov4" id="b2m-ry-LzO"/>
+                <outlet property="permissionLabel" destination="JM7-WZ-uvm" id="sFa-dZ-OBQ"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="278" height="417"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QfG-N8-Ov4">
+                    <rect key="frame" x="39" y="341" width="200" height="50"/>
+                    <color key="backgroundColor" red="0.41176470588235292" green="0.67767902710162475" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="RGe-j8-7S5"/>
+                        <constraint firstAttribute="width" constant="200" id="Szj-Wt-O14"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
+                    <state key="normal" title="Give Permission">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="permissionButtonPressed" destination="-1" eventType="touchUpInside" id="eoo-hQ-sp0"/>
+                    </connections>
+                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo-library" translatesAutoresizingMaskIntoConstraints="NO" id="FUN-XM-L5X">
+                    <rect key="frame" x="39" y="44.5" width="200" height="200"/>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="200" id="F1M-q3-BOa"/>
+                        <constraint firstAttribute="height" constant="200" id="oam-UI-Lgx"/>
+                    </constraints>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b4k-wH-BZU">
+                    <rect key="frame" x="8" y="8" width="30" height="30"/>
+                    <color key="backgroundColor" red="0.41176470590000003" green="0.67843137249999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="Abf-Tw-T5d"/>
+                        <constraint firstAttribute="width" constant="30" id="sf8-js-MG4"/>
+                    </constraints>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" image="close"/>
+                    <connections>
+                        <action selector="close" destination="-1" eventType="touchUpInside" id="TAZ-Sb-57O"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We need your permission to save pictures to your photo library" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JM7-WZ-uvm">
+                    <rect key="frame" x="8" y="256.5" width="262" height="68.5"/>
+                    <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="19"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="JM7-WZ-uvm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="DDx-2O-Asb"/>
+                <constraint firstItem="FUN-XM-L5X" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-64" id="E3H-re-HnP"/>
+                <constraint firstItem="JM7-WZ-uvm" firstAttribute="top" secondItem="FUN-XM-L5X" secondAttribute="bottom" constant="12" id="HtE-8H-qEc"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="JM7-WZ-uvm" secondAttribute="trailing" constant="8" id="IUI-kU-vNB"/>
+                <constraint firstItem="JM7-WZ-uvm" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="LRg-tr-v8F"/>
+                <constraint firstItem="b4k-wH-BZU" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="8" id="Lga-i4-yDq"/>
+                <constraint firstItem="FUN-XM-L5X" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Z3l-ID-cfw"/>
+                <constraint firstItem="QfG-N8-Ov4" firstAttribute="top" secondItem="JM7-WZ-uvm" secondAttribute="bottom" constant="16" id="m8E-8l-gmd"/>
+                <constraint firstItem="QfG-N8-Ov4" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="oVJ-qp-rNv"/>
+                <constraint firstItem="b4k-wH-BZU" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="8" id="okl-TP-8uH"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="142" y="30"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="close" width="37.5" height="37.5"/>
+        <image name="photo-library" width="75" height="75"/>
+    </resources>
+</document>

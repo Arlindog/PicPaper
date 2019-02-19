@@ -41,16 +41,23 @@ enum RequestState: Equatable {
     }
 }
 
+protocol WallPaperViewModelDelegate: class {
+    func showPhotoPermissionView()
+}
+
 class WallPaperViewModel: NSObject, ListAdapterDataSource, PictureSectionViewModelDelegate {
     private struct Constants {
         static let defaultPictureLimit: Int = 5
         static let startingWallPage: Int = 1
     }
+
     lazy var adapter: ListAdapter = {
         let adapter = ListAdapter(updater: ListAdapterUpdater(), viewController: nil)
         adapter.dataSource = self
         return adapter
     }()
+
+    weak var delegate: WallPaperViewModelDelegate?
 
     private let trashBag = DisposeBag()
     private let dataManager = PixabayDataManager()
@@ -158,6 +165,12 @@ class WallPaperViewModel: NSObject, ListAdapterDataSource, PictureSectionViewMod
     // MARK: PictureSectionViewModelDelegate
 
     func savePicture(_ picture: PixabayPicture) {
+        guard PhotoLibraryManager.shared.isAuthorized else {
+            // Show Photo Permission view
+            delegate?.showPhotoPermissionView()
+            return
+        }
+
         requestState.accept(.downloading(picture))
         dataManager.downloadPicture(picture)
             .ensure { [weak self] in
