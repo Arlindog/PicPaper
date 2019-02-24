@@ -16,7 +16,7 @@ class WallPaperViewController: UIViewController, WallPaperViewModelDelegate, Dow
     private let trashBag = DisposeBag()
     private let viewModel = WallPaperViewModel()
 
-    private let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
+    private let activityIndicator = UIActivityIndicatorView(style: .white)
 
     private lazy var blurView: UIVisualEffectView = {
         let blurEffect = UIBlurEffect(style: .dark)

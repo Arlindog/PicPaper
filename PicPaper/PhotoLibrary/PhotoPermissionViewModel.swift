@@ -59,7 +59,7 @@ class PhotoPermissionViewModel {
         case .authorized:
             delegate?.closePermission()
         case .denied, .restricted:
-            guard let settingUrl = URL(string: UIApplicationOpenSettingsURLString) else { return }
+            guard let settingUrl = URL(string: UIApplication.openSettingsURLString) else { return }
             delegate?.closePermission()
             UIApplication.shared.open(settingUrl, options: [:], completionHandler: nil)
         case .notDetermined:
