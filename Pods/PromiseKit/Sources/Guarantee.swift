@@ -5,8 +5,8 @@ import Dispatch
  A `Guarantee` is a functional abstraction around an asynchronous operation that cannot error.
  - See: `Thenable`
 */
-public class Guarantee<T>: Thenable {
-    let box: Box<T>
+public final class Guarantee<T>: Thenable {
+    let box: PromiseKit.Box<T>
 
     fileprivate init(box: SealedBox<T>) {
         self.box = box
@@ -19,7 +19,7 @@ public class Guarantee<T>: Thenable {
 
     /// Returns a pending `Guarantee` that can be resolved with the provided closure’s parameter.
     public init(resolver body: (@escaping(T) -> Void) -> Void) {
-        box = EmptyBox()
+        box = Box()
         body(box.seal)
     }
 
@@ -54,8 +54,19 @@ public class Guarantee<T>: Thenable {
         }
     }
 
+    final private class Box<T>: EmptyBox<T> {
+        deinit {
+            switch inspect() {
+            case .pending:
+                PromiseKit.conf.logHandler(.pendingGuaranteeDeallocated)
+            case .resolved:
+                break
+            }
+        }
+    }
+
     init(_: PMKUnambiguousInitializer) {
-        box = EmptyBox()
+        box = Box()
     }
 
     /// Returns a tuple of a pending `Guarantee` and a function that resolves it.
@@ -75,6 +86,13 @@ public extension Guarantee {
             }
         }
         return rg
+    }
+    
+    func get(on: DispatchQueue? = conf.Q.return, flags: DispatchWorkItemFlags? = nil, _ body: @escaping (T) -> Void) -> Guarantee<T> {
+        return map(on: on, flags: flags) {
+            body($0)
+            return $0
+        }
     }
 
     func map<U>(on: DispatchQueue? = conf.Q.map, flags: DispatchWorkItemFlags? = nil, _ body: @escaping(T) -> U) -> Guarantee<U> {
@@ -98,7 +116,7 @@ public extension Guarantee {
         return rg
     }
 
-    public func asVoid() -> Guarantee<Void> {
+    func asVoid() -> Guarantee<Void> {
         return map(on: nil) { _ in }
     }
     
@@ -106,10 +124,10 @@ public extension Guarantee {
      Blocks this thread, so you know, don’t call this on a serial thread that
      any part of your chain may use. Like the main thread for example.
      */
-    public func wait() -> T {
+    func wait() -> T {
 
         if Thread.isMainThread {
-            print("PromiseKit: warning: `wait()` called on main thread!")
+            conf.logHandler(.waitOnMainThread)
         }
 
         var result = value

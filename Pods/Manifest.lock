@@ -1,55 +1,63 @@
 PODS:
-  - Alamofire (4.7.2)
+  - Alamofire (5.0.0-beta.2)
+  - FLAnimatedImage (1.0.12)
   - IGListKit (3.4.0):
     - IGListKit/Default (= 3.4.0)
   - IGListKit/Default (3.4.0):
     - IGListKit/Diffing
   - IGListKit/Diffing (3.4.0)
-  - PromiseKit (6.3.3):
-    - PromiseKit/CorePromise (= 6.3.3)
-    - PromiseKit/Foundation (= 6.3.3)
-    - PromiseKit/UIKit (= 6.3.3)
-  - PromiseKit/CorePromise (6.3.3)
-  - PromiseKit/Foundation (6.3.3):
+  - PromiseKit (6.8.3):
+    - PromiseKit/CorePromise (= 6.8.3)
+    - PromiseKit/Foundation (= 6.8.3)
+    - PromiseKit/UIKit (= 6.8.3)
+  - PromiseKit/CorePromise (6.8.3)
+  - PromiseKit/Foundation (6.8.3):
     - PromiseKit/CorePromise
-  - PromiseKit/UIKit (6.3.3):
+  - PromiseKit/UIKit (6.8.3):
     - PromiseKit/CorePromise
-  - RxCocoa (4.2.0):
+  - RxAtomic (4.4.1)
+  - RxCocoa (4.4.1):
     - RxSwift (~> 4.0)
-  - RxSwift (4.2.0)
-  - SDWebImage (4.4.1):
-    - SDWebImage/Core (= 4.4.1)
-  - SDWebImage/Core (4.4.1)
+  - RxSwift (4.4.1):
+    - RxAtomic (~> 4.4)
+  - SDWebImage (4.4.6):
+    - SDWebImage/Core (= 4.4.6)
+  - SDWebImage/Core (4.4.6)
   - SVPullToRefresh (0.4.1)
 
 DEPENDENCIES:
-  - Alamofire
-  - IGListKit
-  - PromiseKit
-  - RxCocoa
-  - RxSwift
-  - SDWebImage
-  - SVPullToRefresh
+  - Alamofire (= 5.0.0-beta.2)
+  - FLAnimatedImage (= 1.0.12)
+  - IGListKit (= 3.4.0)
+  - PromiseKit (= 6.8.3)
+  - RxCocoa (= 4.4.1)
+  - RxSwift (= 4.4.1)
+  - SDWebImage (= 4.4.6)
+  - SVPullToRefresh (= 0.4.1)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - FLAnimatedImage
     - IGListKit
     - PromiseKit
+    - RxAtomic
     - RxCocoa
     - RxSwift
     - SDWebImage
     - SVPullToRefresh
 
 SPEC CHECKSUMS:
-  Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
+  Alamofire: d1e5493588babe3e7b56ae29e8032942f4de09fe
+  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   IGListKit: 7a5d788e9fb746bcd402baa8e8b24bc3bd2a5a07
-  PromiseKit: e168626994ae29c38b51252a8d1b0a561fd3f2c7
-  RxCocoa: 0b54909c902e1e581212a03e690bbd94032d8baa
-  RxSwift: 99e10317ddfcc7fbe01356aafd118fde4a0be104
-  SDWebImage: 47e9b5b925cbce75946c23f0c42dd19464189af4
+  PromiseKit: 94c6e781838c5bf4717677d0d882b0e7250c80fc
+  RxAtomic: f8d6adc1ccb87a767811269e4875887bc74dbf19
+  RxCocoa: 2f35a76bf8887872e28a1914112395b11b8e0e64
+  RxSwift: 92fcf68dfef21f3e2ab1965363d9e7b3d787597e
+  SDWebImage: 3f3f0c02f09798048c47a5ed0a13f17b063572d8
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
 
-PODFILE CHECKSUM: c1a44d77fab0d5f15feefc235292f0b09cbd68b1
+PODFILE CHECKSUM: 448e37d42d87fcfd6372cb9fb58e0b91a0437a0c
 
 COCOAPODS: 1.5.3
