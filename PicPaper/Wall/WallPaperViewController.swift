@@ -16,7 +16,7 @@ class WallPaperViewController: UIViewController, WallPaperViewModelDelegate, Dow
     private let trashBag = DisposeBag()
     private let viewModel = WallPaperViewModel()
 
-    private let activityIndicator = UIActivityIndicatorView(style: .white)
+    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
 
     private lazy var blurView: UIVisualEffectView = {
         let blurEffect = UIBlurEffect(style: .dark)
@@ -28,14 +28,7 @@ class WallPaperViewController: UIViewController, WallPaperViewModelDelegate, Dow
     private let downloadingView = DownloadingView()
     private let refreshControl = UIRefreshControl()
 
-    private let collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .clear
-        return collectionView
-    }()
+    @IBOutlet private weak var collectionView: UICollectionView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,22 +44,11 @@ class WallPaperViewController: UIViewController, WallPaperViewModelDelegate, Dow
 
     private func setup() {
         automaticallyAdjustsScrollViewInsets = false
-        view.backgroundColor = .black
         setupCollectionView()
-        setupActivityIndicator()
-        setupDownloadingView()
-        setupPermissionView()
         setupViewModel()
     }
 
     private func setupCollectionView() {
-        view.addSubview(collectionView)
-        [collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-         collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-         collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
-         collectionView.rightAnchor.constraint(equalTo: view.rightAnchor)
-        ].forEach { $0.isActive = true }
-
         refreshControl.addTarget(self, action: #selector(performPullToRefresh), for: .valueChanged)
         collectionView.refreshControl = refreshControl
 
@@ -83,16 +65,7 @@ class WallPaperViewController: UIViewController, WallPaperViewModelDelegate, Dow
             }).disposed(by: trashBag)
     }
 
-    func setupActivityIndicator() {
-        activityIndicator.hidesWhenStopped = true
-        view.addSubview(activityIndicator)
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        [activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-         activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ].forEach { $0.isActive = true }
-    }
-
-    func setupDownloadingView() {
+    private func setupBlurView() {
         blurView.alpha = 0.0
         blurView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(blurView)
@@ -101,7 +74,9 @@ class WallPaperViewController: UIViewController, WallPaperViewModelDelegate, Dow
          blurView.leftAnchor.constraint(equalTo: view.leftAnchor),
          blurView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ].forEach { $0.isActive = true }
+    }
 
+    private func setupDownloadingView() {
         downloadingView.alpha = 0.0
         downloadingView.delegate = self
         downloadingView.translatesAutoresizingMaskIntoConstraints = false
@@ -113,7 +88,7 @@ class WallPaperViewController: UIViewController, WallPaperViewModelDelegate, Dow
         ].forEach { $0.isActive = true }
     }
 
-    func setupViewModel() {
+    private func setupViewModel() {
         viewModel.delegate = self
         viewModel.requestState.asDriver()
             .filter { !$0.isDownloading }
@@ -147,6 +122,8 @@ class WallPaperViewController: UIViewController, WallPaperViewModelDelegate, Dow
     // MARK: WallPaperViewModelDelegate
 
     func showPhotoPermissionView() {
+        setupBlurView()
+        setupPermissionView()
         UIView.animate(withDuration: 0.3) {
             self.blurView.alpha = 1.0
             self.photoPermissionView.alpha = 1.0
@@ -157,6 +134,8 @@ class WallPaperViewController: UIViewController, WallPaperViewModelDelegate, Dow
         guard case let .downloading(picutre) = requestState else { return }
         downloadingView.configure(with: viewModel.requestState.asObservable(), picture: picutre)
 
+        setupBlurView()
+        setupDownloadingView()
         UIView.animate(withDuration: 0.3) {
             self.blurView.alpha = 1.0
             self.downloadingView.alpha = 1.0
@@ -174,18 +153,26 @@ class WallPaperViewController: UIViewController, WallPaperViewModelDelegate, Dow
     // MARK: DownloadingViewDelegate
 
     func closeDownloadView() {
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: 0.3,
+                       animations: {
             self.blurView.alpha = 0.0
             self.downloadingView.alpha = 0.0
-        }
+        }, completion: { _ in
+            self.blurView.removeFromSuperview()
+            self.downloadingView.removeFromSuperview()
+        })
     }
 
     // MARK: PhotoPermissionViewDelegate
 
     func closePhotoPermissionView() {
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: 0.3,
+                       animations: {
             self.blurView.alpha = 0.0
             self.photoPermissionView.alpha = 0.0
-        }
+        }, completion: { _ in
+            self.blurView.removeFromSuperview()
+            self.photoPermissionView.removeFromSuperview()
+        })
     }
 }
