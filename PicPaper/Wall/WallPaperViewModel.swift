@@ -75,7 +75,7 @@ class WallPaperViewModel: NSObject, ListAdapterDataSource, PictureSectionViewMod
     private func setup() {
         wallPaperData.asDriver()
             .drive(onNext: { [unowned self] _ in
-                self.adapter.performUpdates(animated: false)
+                self.adapter.performUpdates(animated: true)
             }).disposed(by: trashBag)
     }
 

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2A15AEB0F28BD91CE093AE83 /* Pods_PicPaper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E84C0EBBE25DCF962A17E4D /* Pods_PicPaper.framework */; };
+		5F36BEA9222B5FB300CE421C /* WallPaperViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F36BEA8222B5FB300CE421C /* WallPaperViewController.xib */; };
 		5F87B1072128631600402A24 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87B1062128631600402A24 /* AppDelegate.swift */; };
 		5F87B10C2128631600402A24 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F87B10A2128631600402A24 /* Main.storyboard */; };
 		5F87B10E2128631800402A24 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F87B10D2128631800402A24 /* Assets.xcassets */; };
@@ -61,6 +62,7 @@
 		25062616DD917BBE644EAD0B /* Pods-PicPaper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicPaper.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PicPaper/Pods-PicPaper.debug.xcconfig"; sourceTree = "<group>"; };
 		2E84C0EBBE25DCF962A17E4D /* Pods_PicPaper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PicPaper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5345364F1BE3B658B2544039 /* Pods-PicPaperTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicPaperTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PicPaperTests/Pods-PicPaperTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5F36BEA8222B5FB300CE421C /* WallPaperViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WallPaperViewController.xib; sourceTree = "<group>"; };
 		5F87B1032128631600402A24 /* PicPaper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PicPaper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F87B1062128631600402A24 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5F87B10B2128631600402A24 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 			isa = PBXGroup;
 			children = (
 				5F87B13B2128C5E600402A24 /* WallPaperViewController.swift */,
+				5F36BEA8222B5FB300CE421C /* WallPaperViewController.xib */,
 				5F87B13D2128CB0800402A24 /* WallPaperViewModel.swift */,
 				5F87B14E2131AB7A00402A24 /* WallPaperSectionController.swift */,
 				5F87B1502131ABAA00402A24 /* WallPaperSectionViewModel.swift */,
@@ -393,6 +396,7 @@
 				5FDC6F6421EED06100EF6113 /* PictureCell.xib in Resources */,
 				5F87B1112128631800402A24 /* LaunchScreen.storyboard in Resources */,
 				5F958BAA2218FB7100CE656C /* PhotoPermissionView.xib in Resources */,
+				5F36BEA9222B5FB300CE421C /* WallPaperViewController.xib in Resources */,
 				5F87B10E2128631800402A24 /* Assets.xcassets in Resources */,
 				5F87B10C2128631600402A24 /* Main.storyboard in Resources */,
 				5FDC6F6921F4F9B500EF6113 /* DownloadingView.xib in Resources */,
