@@ -108,15 +108,15 @@ class WallPaperViewModel: NSObject, ListAdapterDataSource, PictureSectionViewMod
     }
 
     func requstWallPaperData(requestType: WallRequestType) {
-        requestState.accept(.loadingWallPaper)
-
         let shouldResetWallPage: Bool
         switch requestType {
         case .standard:
             wallPaperData.accept([])
+            requestState.accept(.loadingWallPaper)
             shouldResetWallPage = true
         case .pullToRefresh:
             shouldResetWallPage = false
+            requestState.accept(.loadingWallPaper)
         case .pagination:
             shouldResetWallPage = false
         }
