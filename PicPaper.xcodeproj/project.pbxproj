@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -394,7 +394,7 @@
 				TargetAttributes = {
 					5F87B1022128631600402A24 = {
 						CreatedOnToolsVersion = 9.4.1;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1110;
 					};
 					5F87B1162128631800402A24 = {
 						CreatedOnToolsVersion = 9.4.1;
@@ -727,7 +727,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.DevByArlindo.PicPaper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -749,7 +749,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.DevByArlindo.PicPaper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
