@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (4.7.2)
+  - Alamofire (5.0.0)
   - Differentiator (4.0.1)
   - PromiseKit (6.3.3):
     - PromiseKit/CorePromise (= 6.3.3)
@@ -26,7 +26,7 @@ PODS:
   - SVPullToRefresh (0.4.1)
 
 DEPENDENCIES:
-  - Alamofire (= 4.7.2)
+  - Alamofire (= 5.0.0)
   - PromiseKit (= 6.3.3)
   - RxCocoa (= 5.0.1)
   - RxDataSources (= 4.0.1)
@@ -37,11 +37,11 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
-    - Alamofire
     - PromiseKit
     - SDWebImage
     - SVPullToRefresh
   trunk:
+    - Alamofire
     - Differentiator
     - RxCocoa
     - RxDataSources
@@ -49,7 +49,7 @@ SPEC REPOS:
     - RxSwift
 
 SPEC CHECKSUMS:
-  Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
+  Alamofire: 58ff2bfb8daaacaa233d5c36e37b10a5248f59b1
   Differentiator: 886080237d9f87f322641dedbc5be257061b0602
   PromiseKit: e168626994ae29c38b51252a8d1b0a561fd3f2c7
   RxCocoa: e741b9749968e8a143e2b787f1dfbff2b63d0a5c
@@ -59,6 +59,6 @@ SPEC CHECKSUMS:
   SDWebImage: 47e9b5b925cbce75946c23f0c42dd19464189af4
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
 
-PODFILE CHECKSUM: 18fa58e5ef435a7a59b608b2807d95576d3cdbb0
+PODFILE CHECKSUM: 0e8000cc4d1ccd0db66e0e38075c31cee0583eeb
 
 COCOAPODS: 1.8.4

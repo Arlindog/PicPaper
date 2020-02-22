@@ -28,15 +28,15 @@ enum NetworkProviderError: Error, CustomStringConvertible {
 
 class NetworkProvider {
 
-    private let manager: SessionManager
+    private let manager: Session
 
     init() {
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 10
-        manager = Alamofire.SessionManager(configuration: configuration)
+        manager = Alamofire.Session(configuration: configuration)
     }
 
-    func get(url: String, parameters: Params? = nil, completion: @escaping (DataResponse<Data>) -> Void) {
+    func get(url: String, parameters: Params? = nil, completion: @escaping (AFDataResponse<Data>) -> Void) {
         manager.request(url, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil)
             .validate()
             .responseData { completion($0) }
