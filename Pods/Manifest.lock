@@ -1,11 +1,6 @@
 PODS:
   - Alamofire (4.7.2)
   - Differentiator (4.0.1)
-  - IGListKit (3.4.0):
-    - IGListKit/Default (= 3.4.0)
-  - IGListKit/Default (3.4.0):
-    - IGListKit/Diffing
-  - IGListKit/Diffing (3.4.0)
   - PromiseKit (6.3.3):
     - PromiseKit/CorePromise (= 6.3.3)
     - PromiseKit/Foundation (= 6.3.3)
@@ -32,7 +27,6 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (= 4.7.2)
-  - IGListKit (= 3.4.0)
   - PromiseKit (= 6.3.3)
   - RxCocoa (= 5.0.1)
   - RxDataSources (= 4.0.1)
@@ -44,7 +38,6 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Alamofire
-    - IGListKit
     - PromiseKit
     - SDWebImage
     - SVPullToRefresh
@@ -58,7 +51,6 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
   Differentiator: 886080237d9f87f322641dedbc5be257061b0602
-  IGListKit: 7a5d788e9fb746bcd402baa8e8b24bc3bd2a5a07
   PromiseKit: e168626994ae29c38b51252a8d1b0a561fd3f2c7
   RxCocoa: e741b9749968e8a143e2b787f1dfbff2b63d0a5c
   RxDataSources: efee07fa4de48477eca0a4611e6d11e2da9c1114
@@ -67,6 +59,6 @@ SPEC CHECKSUMS:
   SDWebImage: 47e9b5b925cbce75946c23f0c42dd19464189af4
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
 
-PODFILE CHECKSUM: 133e9c3926df3ef1904ae370423cddb14c38ffb2
+PODFILE CHECKSUM: 18fa58e5ef435a7a59b608b2807d95576d3cdbb0
 
 COCOAPODS: 1.8.4
