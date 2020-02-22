@@ -7,7 +7,7 @@
 //
 
 import Alamofire
-import PromiseKit
+import RxSwift
 
 enum NetworkProviderError: Error, CustomStringConvertible {
     case noData
@@ -26,7 +26,9 @@ enum NetworkProviderError: Error, CustomStringConvertible {
     }
 }
 
-class NetworkProvider {
+class NetworkProvider: Provider {
+
+    static let shared = NetworkProvider()
 
     private let manager: Session
 
@@ -36,32 +38,62 @@ class NetworkProvider {
         manager = Alamofire.Session(configuration: configuration)
     }
 
-    func get(url: String, parameters: Params? = nil, completion: @escaping (AFDataResponse<Data>) -> Void) {
-        manager.request(url, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil)
-            .validate()
-            .responseData { completion($0) }
-    }
+    func get(url: String) -> Single<Data> {
+        return Single.create { [weak self] task in
+            guard let self = self else { return  Disposables.create() }
+            let request = self.get(url: url) { response in
+                if let error = response.error {
+                    task(.error(NetworkProviderError.networkError(error)))
+                    return
+                }
 
-    func get<Object: Decodable>(seal: Resolver<Object>, url: String, parameters: Params? = nil) {
-        get(url: url, parameters: parameters) { response in
-            if let error = response.error {
-                seal.reject(NetworkProviderError.networkError(error))
-                return
+                guard let data = response.data else {
+                    task(.error(NetworkProviderError.noData))
+                    return
+                }
+
+                task(.success(data))
             }
 
-            guard let data = response.data else {
-                seal.reject(NetworkProviderError.noData)
-                return
-            }
-
-            do {
-                let decodableObject = try JSONDecoder().decode(Object.self, from: data)
-                seal.fulfill(decodableObject)
-            } catch let error {
-                print("Decoding Error: \(error)")
-                let stringValue = String(data: data, encoding: .utf8)
-                seal.reject(NetworkProviderError.unableToDecode(stringValue ?? ""))
+            return Disposables.create {
+                request.cancel()
             }
         }
+    }
+
+    func get<Object: Decodable>(url: String, parameters: Params? = nil) -> Single<Object> {
+        return Single.create { [weak self] task in
+            guard let self = self else { return  Disposables.create() }
+            let request = self.get(url: url, parameters: parameters) { response in
+                if let error = response.error {
+                    task(.error(NetworkProviderError.networkError(error)))
+                    return
+                }
+
+                guard let data = response.data else {
+                    task(.error(NetworkProviderError.noData))
+                    return
+                }
+
+                do {
+                    let decodableObject = try JSONDecoder().decode(Object.self, from: data)
+                    task(.success(decodableObject))
+                } catch let error {
+                    print("Decoding Error: \(error)")
+                    let stringValue = String(data: data, encoding: .utf8)
+                    task(.error(NetworkProviderError.unableToDecode(stringValue ?? "")))
+                }
+            }
+
+            return Disposables.create {
+                request.cancel()
+            }
+        }
+    }
+
+    private func get(url: String, parameters: Params? = nil, completion: @escaping (AFDataResponse<Data>) -> Void) -> DataRequest {
+        return manager.request(url, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil)
+            .validate()
+            .responseData { completion($0) }
     }
 }

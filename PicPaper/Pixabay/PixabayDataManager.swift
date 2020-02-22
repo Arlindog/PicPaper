@@ -6,36 +6,22 @@
 //  Copyright © 2018 DevByArlindo. All rights reserved.
 //
 
-import PromiseKit
+import RxSwift
 
 class PixabayDataManager {
 
-    let fetchable: Fetchable
+    let provider: Provider
 
-    init(fetchable: Fetchable = NetworkFetchable()) {
-        self.fetchable = fetchable
+    init(provider: Provider = NetworkProvider.shared) {
+        self.provider = provider
     }
 
-    func getPictures(parameters: Params) -> Promise<PixabayContentItem<PixabayPicture>> {
+    func getPictures(parameters: Params) -> Single<PixabayContentItem<PixabayPicture>> {
         let url = Routes.url(for: .picture)
-        return fetchable.get(url: url, parameters: parameters)
+        return provider.get(url: url, parameters: parameters)
     }
 
-    func downloadPicture(_ picture: PixabayPicture) -> Promise<Data> {
-        return fetchable.get(url: picture.imageUrl)
-    }
-
-    func getVideos(parameters: Params) -> Promise<String> {
-        let url = Routes.url(for: .video)
-        return Promise { seal in
-            // TODO: REquest Videos
-        }
-    }
-
-    func getStaticVideoImage(videoId: String, size: String) -> Promise<String> {
-        let url = Routes.url(for: .staticVideoImage(videoId, size))
-        return Promise { seal in
-            // TODO: Request Video Images for preview
-        }
+    func downloadPicture(_ picture: PixabayPicture) -> Single<Data> {
+        return provider.get(url: picture.imageUrl)
     }
 }

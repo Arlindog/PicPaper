@@ -93,15 +93,19 @@ class WallPaperViewModel: NSObject, PictureSectionViewModelDelegate {
         let params = RequestParams.buildParams(values: paramsValues)
 
         dataManager.getPictures(parameters: params)
-            .ensure { [weak self] in
-                self?.requestState.accept(.idle)
+            .subscribe { [weak self] in
+                guard let self = self else { return }
+                switch $0 {
+                case .success(let contentItems):
+                    let sectionViewModels = self.generateViewModels(from: contentItems)
+                    self.handleWallPaperResponse(with: sectionViewModels, requestType: requestType)
+                    self.requestState.accept(.idle)
+                case .error(let error):
+                    print("Error downloading image: \(error)")
+                    self.requestState.accept(.error(error))
+                }
             }
-            .map(generateViewModels)
-            .done { [weak self] wallpaperSectionViewModels in
-                self?.handleWallPaperResponse(with: wallpaperSectionViewModels, requestType: requestType)
-            }.catch { [weak self] error in
-                self?.requestState.accept(.error(error))
-            }
+            .disposed(by: trashBag)
     }
 
     func clearSearchTerm() {
@@ -137,17 +141,21 @@ class WallPaperViewModel: NSObject, PictureSectionViewModelDelegate {
         }
 
         requestState.accept(.downloading(picture))
+
         dataManager.downloadPicture(picture)
-            .ensure { [weak self] in
-                self?.requestState.accept(.idle)
-            }.compactMap {
-                UIImage(data: $0)
-            }.done { image in
-                UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-            }.catch { [weak self] error in
-                print("Error downloading image: \(error)")
-                self?.requestState.accept(.error(error))
+            .subscribe { [weak self] in
+                switch $0 {
+                case .success(let data):
+                    if let image = UIImage(data: data) {
+                        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+                    }
+                    self?.requestState.accept(.idle)
+                case .error(let error):
+                    print("Error downloading image: \(error)")
+                    self?.requestState.accept(.error(error))
+                }
             }
+            .disposed(by: trashBag)
     }
 
     func getSectionSize(for indexPath: IndexPath, contextWidth: CGFloat) -> CGSize {
