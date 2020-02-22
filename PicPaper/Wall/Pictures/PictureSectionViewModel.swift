@@ -6,13 +6,13 @@
 //  Copyright © 2018 DevByArlindo. All rights reserved.
 //
 
-import IGListKit
+import UIKit
 
 protocol PictureSectionViewModelDelegate: class {
     func savePicture(_ picture: PixabayPicture)
 }
 
-class PictureSectionViewModel: NSObject, SectionViewModel {
+class PictureSectionViewModel: SectionViewModel {
 
     private struct Constants {
         static let aspectRatio: CGFloat = 9/16
@@ -21,8 +21,14 @@ class PictureSectionViewModel: NSObject, SectionViewModel {
     }
 
     weak var delegate: PictureSectionViewModelDelegate?
-    var adapter: ListAdapter?
-    var sectionController: BaseSectionController = PictureSectionController()
+
+    override var cellIdentifier: String {
+        return PictureCell.identifier
+    }
+
+    override var identity: String {
+        return "\(picture.id)"
+    }
 
     let picture: PixabayPicture
 
@@ -31,17 +37,9 @@ class PictureSectionViewModel: NSObject, SectionViewModel {
         super.init()
     }
 
-    func getSize(using contextSize: CGSize) -> CGSize {
-        return CGSize(width: contextSize.width,
+    override func getSize(using contextWidth: CGFloat) -> CGSize {
+        return CGSize(width: contextWidth,
                       height: max(CGFloat(picture.previewHeight), Constants.maxPictureHeight) + Constants.pictureCellToolbarHeight)
-    }
-
-    func diffIdentifier() -> NSObjectProtocol {
-        return self
-    }
-
-    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
-        return isEqual(object)
     }
 
     func openUserProfile() {

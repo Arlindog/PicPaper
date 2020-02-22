@@ -6,56 +6,18 @@
 //  Copyright © 2018 DevByArlindo. All rights reserved.
 //
 
-import IGListKit
 import RxSwift
 import RxCocoa
-
-enum RequestState: Equatable {
-    static func == (lhs: RequestState, rhs: RequestState) -> Bool {
-        switch (lhs, rhs) {
-        case (.downloading, .downloading):
-            return true
-        case (.idle, .idle):
-            return true
-        case (.loadingWallPaper, .loadingWallPaper):
-            return true
-        case (.error, .error):
-            return true
-        default:
-            return false
-        }
-    }
-
-    case idle
-    case loadingWallPaper
-    case downloading(PixabayPicture)
-    case error(Error)
-
-    var isDownloading: Bool {
-        switch self {
-        case .downloading:
-            return true
-        default:
-            return false
-        }
-    }
-}
 
 protocol WallPaperViewModelDelegate: class {
     func showPhotoPermissionView()
 }
 
-class WallPaperViewModel: NSObject, ListAdapterDataSource, PictureSectionViewModelDelegate {
+class WallPaperViewModel: NSObject, PictureSectionViewModelDelegate {
     private struct Constants {
         static let defaultPictureLimit: Int = 5
         static let startingWallPage: Int = 1
     }
-
-    lazy var adapter: ListAdapter = {
-        let adapter = ListAdapter(updater: ListAdapterUpdater(), viewController: nil)
-        adapter.dataSource = self
-        return adapter
-    }()
 
     weak var delegate: WallPaperViewModelDelegate?
 
@@ -72,31 +34,22 @@ class WallPaperViewModel: NSObject, ListAdapterDataSource, PictureSectionViewMod
         return currentSearchTerm.asDriver()
     }
 
+    var wallPaperDataDriver: Driver<[SectionViewModel]> {
+        return wallPaperData.asDriver()
+    }
+
     override init() {
         super.init()
         setup()
     }
 
     private func setup() {
-        wallPaperData.asDriver()
-            .drive(onNext: { [unowned self] _ in
-                self.adapter.performUpdates(animated: true)
-            }).disposed(by: trashBag)
-
         currentSearchTerm
             // skip the initial value
             .skip(1)
             .subscribe(onNext: { [unowned self] _ in
                 self.requstWallPaperData(requestType: .standard)
             }).disposed(by: trashBag)
-    }
-
-    func setViewController(_ viewController: UIViewController) {
-        adapter.viewController = viewController
-    }
-
-    func setCollectionView(_ collectionView: UICollectionView) {
-        adapter.collectionView = collectionView
     }
 
     func configure(with searchBarViewModel: SearchBarViewModel) {
@@ -107,7 +60,7 @@ class WallPaperViewModel: NSObject, ListAdapterDataSource, PictureSectionViewMod
             .disposed(by: trashBag)
     }
 
-    func requstWallPaperData(requestType: WallRequestType) {
+    func requstWallPaperData(requestType: RequestType) {
         let shouldResetWallPage: Bool
         switch requestType {
         case .standard:
@@ -155,15 +108,15 @@ class WallPaperViewModel: NSObject, ListAdapterDataSource, PictureSectionViewMod
         currentSearchTerm.accept(nil)
     }
 
-    private func generateViewModels(from contentItems: PixabayContentItem<PixabayPicture>) -> [WallPaperSectionViewModel] {
+    private func generateViewModels(from contentItems: PixabayContentItem<PixabayPicture>) -> [SectionViewModel] {
         return contentItems.items.map { (picture) in
             let pictureViewModel = PictureSectionViewModel(picture: picture)
             pictureViewModel.delegate = self
-            return WallPaperSectionViewModel(mediacontent: [pictureViewModel])
+            return pictureViewModel
         }
     }
 
-    private func handleWallPaperResponse(with sectionViewModels: [SectionViewModel], requestType: WallRequestType) {
+    private func handleWallPaperResponse(with sectionViewModels: [SectionViewModel], requestType: RequestType) {
         switch requestType {
         case .standard, .pullToRefresh:
             wallPaperData.accept(sectionViewModels)
@@ -172,24 +125,6 @@ class WallPaperViewModel: NSObject, ListAdapterDataSource, PictureSectionViewMod
             wallPaperData.accept(updatedSectionViewModels)
         }
         currentWallPage += 1
-    }
-
-    // MARK: ListAdapterDataSource
-
-    func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        return wallPaperData.value
-    }
-
-    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-        guard let sectionViewModel = object as? SectionViewModel else {
-            assertionFailure("Expecting a SectionViewModel")
-            return ListSectionController()
-        }
-        return sectionViewModel.sectionController
-    }
-
-    func emptyView(for listAdapter: ListAdapter) -> UIView? {
-        return nil
     }
 
     // MARK: PictureSectionViewModelDelegate
@@ -213,5 +148,10 @@ class WallPaperViewModel: NSObject, ListAdapterDataSource, PictureSectionViewMod
                 print("Error downloading image: \(error)")
                 self?.requestState.accept(.error(error))
             }
+    }
+
+    func getSectionSize(for indexPath: IndexPath, contextWidth: CGFloat) -> CGSize {
+        guard let sectionViewModel = wallPaperData.value[safely: indexPath.row] else { return .zero }
+        return sectionViewModel.getSize(using: contextWidth)
     }
 }
