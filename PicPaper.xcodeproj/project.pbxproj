@@ -19,9 +19,7 @@
 		5F87B12B21286CA500402A24 /* RequestParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87B12A21286CA500402A24 /* RequestParams.swift */; };
 		5F87B12D2128788900402A24 /* NetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87B12C2128788900402A24 /* NetworkProvider.swift */; };
 		5F87B12F212880E000402A24 /* PixabayDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87B12E212880E000402A24 /* PixabayDataManager.swift */; };
-		5F87B131212880ED00402A24 /* Fetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87B130212880ED00402A24 /* Fetchable.swift */; };
-		5F87B133212881AF00402A24 /* NetworkFetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87B132212881AF00402A24 /* NetworkFetchable.swift */; };
-		5F87B1352128846E00402A24 /* LocalFetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87B1342128846E00402A24 /* LocalFetchable.swift */; };
+		5F87B131212880ED00402A24 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87B130212880ED00402A24 /* Provider.swift */; };
 		5F87B13721288A9F00402A24 /* PixabayPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87B13621288A9F00402A24 /* PixabayPicture.swift */; };
 		5F87B13A2128BA1900402A24 /* PixabayContentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87B1392128BA1900402A24 /* PixabayContentItem.swift */; };
 		5F87B13C2128C5E600402A24 /* WallPaperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87B13B2128C5E600402A24 /* WallPaperViewController.swift */; };
@@ -81,9 +79,7 @@
 		5F87B12A21286CA500402A24 /* RequestParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestParams.swift; sourceTree = "<group>"; };
 		5F87B12C2128788900402A24 /* NetworkProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProvider.swift; sourceTree = "<group>"; };
 		5F87B12E212880E000402A24 /* PixabayDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixabayDataManager.swift; sourceTree = "<group>"; };
-		5F87B130212880ED00402A24 /* Fetchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fetchable.swift; sourceTree = "<group>"; };
-		5F87B132212881AF00402A24 /* NetworkFetchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkFetchable.swift; sourceTree = "<group>"; };
-		5F87B1342128846E00402A24 /* LocalFetchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFetchable.swift; sourceTree = "<group>"; };
+		5F87B130212880ED00402A24 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
 		5F87B13621288A9F00402A24 /* PixabayPicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixabayPicture.swift; sourceTree = "<group>"; };
 		5F87B1392128BA1900402A24 /* PixabayContentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixabayContentItem.swift; sourceTree = "<group>"; };
 		5F87B13B2128C5E600402A24 /* WallPaperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallPaperViewController.swift; sourceTree = "<group>"; };
@@ -200,10 +196,8 @@
 			children = (
 				5F87B128212868EF00402A24 /* Routes.swift */,
 				5F87B12A21286CA500402A24 /* RequestParams.swift */,
+				5F87B130212880ED00402A24 /* Provider.swift */,
 				5F87B12C2128788900402A24 /* NetworkProvider.swift */,
-				5F87B130212880ED00402A24 /* Fetchable.swift */,
-				5F87B132212881AF00402A24 /* NetworkFetchable.swift */,
-				5F87B1342128846E00402A24 /* LocalFetchable.swift */,
 				5F46C5B52401AFC400A3C762 /* RequestState.swift */,
 				5F958BA422189AFB00CE656C /* RequestType.swift */,
 			);
@@ -492,7 +486,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F958BB822231D5C00CE656C /* Colors.swift in Sources */,
-				5F87B133212881AF00402A24 /* NetworkFetchable.swift in Sources */,
 				5F958BA82218FAEA00CE656C /* PhotoPermissionView.swift in Sources */,
 				5F958BAE2219DD8200CE656C /* UIView+Rx.swift in Sources */,
 				5F958BA522189AFB00CE656C /* RequestType.swift in Sources */,
@@ -505,7 +498,6 @@
 				5F87B1572132F0E500402A24 /* PictureCell.swift in Sources */,
 				5F87B13A2128BA1900402A24 /* PixabayContentItem.swift in Sources */,
 				5F87B129212868EF00402A24 /* Routes.swift in Sources */,
-				5F87B1352128846E00402A24 /* LocalFetchable.swift in Sources */,
 				5F87B1552132F0D700402A24 /* PictureSectionViewModel.swift in Sources */,
 				5FBC61062401BA8C005BEC06 /* SectionItem.swift in Sources */,
 				5F87B13E2128CB0800402A24 /* WallPaperViewModel.swift in Sources */,
@@ -518,7 +510,7 @@
 				5F87B1072128631600402A24 /* AppDelegate.swift in Sources */,
 				5F87B12B21286CA500402A24 /* RequestParams.swift in Sources */,
 				5F87B12F212880E000402A24 /* PixabayDataManager.swift in Sources */,
-				5F87B131212880ED00402A24 /* Fetchable.swift in Sources */,
+				5F87B131212880ED00402A24 /* Provider.swift in Sources */,
 				5F46C5B62401AFC400A3C762 /* RequestState.swift in Sources */,
 				5F87B13C2128C5E600402A24 /* WallPaperViewController.swift in Sources */,
 				5FBC61002401B066005BEC06 /* SectionViewModel.swift in Sources */,

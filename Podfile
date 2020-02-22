@@ -5,7 +5,6 @@ target 'PicPaper' do
   use_frameworks!
 
   pod 'Alamofire', '5.0.0'
-  pod 'PromiseKit', '6.3.3'
   pod 'RxSwift', '5.0.1'
   pod 'RxCocoa', '5.0.1'
   pod 'RxRelay', '5.0.1'
