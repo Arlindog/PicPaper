@@ -6,12 +6,12 @@
 //  Copyright © 2018 DevByArlindo. All rights reserved.
 //
 
-import UIKit
+import RxDataSources
 import RxSwift
 import RxCocoa
 import SVPullToRefresh
 
-class WallPaperViewController: UIViewController, WallPaperViewModelDelegate, DownloadingViewDelegate, PhotoPermissionViewDelegate {
+class WallPaperViewController: UIViewController, UICollectionViewDelegateFlowLayout, WallPaperViewModelDelegate, DownloadingViewDelegate, PhotoPermissionViewDelegate {
     private struct Constants {
         static let searchBarHeight: CGFloat = 40
         static let searchBarPadding: CGFloat = 8
@@ -94,6 +94,9 @@ class WallPaperViewController: UIViewController, WallPaperViewModelDelegate, Dow
     }
 
     private func setupCollectionView() {
+        collectionView.delegate = self
+        collectionView.register(UINib(nibName: PictureCell.identifier, bundle: nil),
+                                forCellWithReuseIdentifier: PictureCell.identifier)
         collectionView.keyboardDismissMode = .interactive
         refreshControl.addTarget(self, action: #selector(performPullToRefresh), for: .valueChanged)
         collectionView.refreshControl = refreshControl
@@ -109,6 +112,24 @@ class WallPaperViewController: UIViewController, WallPaperViewModelDelegate, Dow
                 self.collectionView.infiniteScrollingView.stopAnimating()
                 self.refreshControl.endRefreshing()
             }).disposed(by: trashBag)
+
+        let dataSource = RxCollectionViewSectionedAnimatedDataSource<Section>(
+            configureCell: { _, collectionView, indexPath, sectionViewModel in
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: sectionViewModel.cellIdentifier, for: indexPath)
+
+                if let cell = cell as? SectionCell {
+                    cell.configure(with: sectionViewModel)
+                }
+
+                return cell
+        })
+
+        viewModel.wallPaperDataDriver
+            .map {
+                return [Section(model: "", items: $0)]
+            }
+            .drive(collectionView.rx.items(dataSource: dataSource))
+            .disposed(by: trashBag)
     }
 
     private func setupSearchBar() {
@@ -228,9 +249,6 @@ class WallPaperViewController: UIViewController, WallPaperViewModelDelegate, Dow
             .drive(onNext: showDownloadingView)
             .disposed(by: trashBag)
 
-        viewModel.setViewController(self)
-        viewModel.setCollectionView(collectionView)
-
         viewModel.configure(with: searchBar.viewModel)
     }
 
@@ -275,7 +293,7 @@ class WallPaperViewController: UIViewController, WallPaperViewModelDelegate, Dow
         loadWall(requestType: .pullToRefresh)
     }
 
-    private func loadWall(requestType: WallRequestType) {
+    private func loadWall(requestType: RequestType) {
         viewModel.requstWallPaperData(requestType: requestType)
     }
 
@@ -303,5 +321,19 @@ class WallPaperViewController: UIViewController, WallPaperViewModelDelegate, Dow
             self.blurView.removeFromSuperview()
             self.photoPermissionView.removeFromSuperview()
         })
+    }
+
+    // MARK: UICollectionViewDelegateFlowLayout
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return viewModel.getSectionSize(for: indexPath, contextWidth: collectionView.bounds.width)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 16
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 16
     }
 }

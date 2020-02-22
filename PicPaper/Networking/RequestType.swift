@@ -1,5 +1,5 @@
 //
-//  WallRequestType.swift
+//  RequestType.swift
 //  PicPaper
 //
 //  Created by Arlindo on 2/16/19.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-enum WallRequestType {
+enum RequestType {
     case standard, pullToRefresh, pagination
 }
